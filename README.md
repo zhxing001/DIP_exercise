@@ -1,7 +1,7 @@
-# matlab_exercise
+#DIP_exercise
 
-some matlab_exercise.
+some exercise.it could be matlab,c++ or python.
 
-some matlab code about CV,some of them is written by myself,some from the network.
+some code about CV,some of them is written by myself,some from the network.
 
 I do this just for understand the principle about some algorithm.
