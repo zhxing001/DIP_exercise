@@ -1,0 +1,18 @@
+﻿生成启动时间为 2017/8/17 9:39:08。
+     1>项目“C:\Users\sally\Desktop\opencv\DrawHull\DrawHull\DrawHull.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         E:\v_s2015\VC\bin\x86_amd64\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt main.cpp
+         main.cpp
+     1>f:\opencv\build\include\opencv2\core\mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>f:\opencv\build\include\opencv2\core\persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>f:\opencv\build\include\opencv2\core\utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>f:\opencv\build\include\opencv2\core\utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>f:\opencv\build\include\opencv2\imgproc.hpp(592): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+       Link:
+         E:\v_s2015\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\sally\Desktop\opencv\DrawHull\x64\Debug\DrawHull.exe" /INCREMENTAL /NOLOGO opencv_world320d.lib opencv_world320.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\sally\Desktop\opencv\DrawHull\x64\Debug\DrawHull.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\sally\Desktop\opencv\DrawHull\x64\Debug\DrawHull.lib" /MACHINE:X64 x64\Debug\main.obj
+         DrawHull.vcxproj -> C:\Users\sally\Desktop\opencv\DrawHull\x64\Debug\DrawHull.exe
+     1>已完成生成项目“C:\Users\sally\Desktop\opencv\DrawHull\DrawHull\DrawHull.vcxproj”(Build 个目标)的操作。
+
+已成功生成。
+
+已用时间 00:00:01.93

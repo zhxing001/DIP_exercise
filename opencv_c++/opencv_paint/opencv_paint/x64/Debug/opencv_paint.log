@@ -1,0 +1,11 @@
+﻿生成启动时间为 2017/7/21 11:13:17。
+     1>项目“C:\Users\sally\Desktop\opencv\opencv_paint\opencv_paint\opencv_paint.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         E:\v_s2015\VC\bin\x86_amd64\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\users\sally\desktop\opencv\opencv_paint\opencv_paint\main.cpp(2): fatal error C1083: 无法打开包括文件: “opencv2\core\core.hpp”: No such file or directory
+     1>已完成生成项目“C:\Users\sally\Desktop\opencv\opencv_paint\opencv_paint\opencv_paint.vcxproj”(Build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:00.52

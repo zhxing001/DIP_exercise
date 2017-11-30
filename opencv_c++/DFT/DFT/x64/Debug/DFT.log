@@ -1,0 +1,10 @@
+﻿生成启动时间为 2017/8/27 14:43:50。
+     1>项目“C:\Users\zhxing\Desktop\opencv\DFT\DFT\DFT.vcxproj”在节点 2 上(Build 个目标)。
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\zhxing\Desktop\opencv\DFT\x64\Debug\DFT.exe" /INCREMENTAL /NOLOGO opencv_world330d.lib opencv_world330.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG:FASTLINK /PDB:"C:\Users\zhxing\Desktop\opencv\DFT\x64\Debug\DFT.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\zhxing\Desktop\opencv\DFT\x64\Debug\DFT.lib" /MACHINE:X64 x64\Debug\dft.obj
+         DFT.vcxproj -> C:\Users\zhxing\Desktop\opencv\DFT\x64\Debug\DFT.exe
+     1>已完成生成项目“C:\Users\zhxing\Desktop\opencv\DFT\DFT\DFT.vcxproj”(Build 个目标)的操作。
+
+已成功生成。
+
+已用时间 00:00:00.69
