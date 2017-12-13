@@ -1,16 +1,16 @@
-clear all;
-clc;
+function feature=hog(img)
 
-img=imread('1.jpg');
-figure
-imshow(img),title('原图');
-figure
-img=rgb2gray(img);
-imshow(img),title('灰度图')
+%img=imread('1.jpg');
+%figure
+%imshow(img),title('原图');
+%figure
+%img=rgb2gray(img);
+
+%imshow(img),title('灰度图')
 [m, n]=size(img);
 img=sqrt(double(img));      %伽马校正
-figure
-imshow(uint8(img)),title('gamma矫正之后')
+%figure
+%imshow(img,[]),title('gamma矫正之后')
 
 %下面是求边缘
 fy=[-1 0 1];        %定义竖直模板
@@ -18,13 +18,13 @@ fx=fy';             %定义水平模板
 Iy=imfilter(img,fy,'replicate');    %竖直边缘
 figure,imshow(Iy),title('竖直边缘,梯度');
 Ix=imfilter(img,fx,'replicate');    %水平边缘
-figure,imshow(Ix),title('水平边缘,梯度');
+%figure,imshow(Ix),title('水平边缘,梯度');
 Ied=sqrt(Ix.^2+Iy.^2);              %边缘强度
 Iphase=Iy./Ix;              %边缘斜率，有些为inf,-inf,nan，其中nan需要再处理一下，这里是正切值
 
 
 %下面是求cell
-step=16;                %step*step个像素作为一个单元 16*16=256个点
+step=4;                %step*step个像素作为一个单元 16*16=256个点
 orient=9;               %方向直方图的方向个数  9个方向。40度分辨率
 jiao=360/orient;        %每个方向包含的角度数
 Cell=cell(1,1);              %所有的角度直方图,cell是可以动态增加的，所以先设了一个
@@ -79,10 +79,10 @@ end
 
 %到此结束，feature即为所求
 %下面是为了显示而写的
-l=length(feature);
-f=[];
-for i=1:l
-    f=[f;feature{i}(:)'];  
-end 
-figure
-mesh(f)
+% l=length(feature);
+% f=[];
+% for i=1:l
+%     f=[f;feature{i}(:)'];  
+% end 
+% %figure
+%mesh(f)
