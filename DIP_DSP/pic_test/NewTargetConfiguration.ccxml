@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configurations XML_version="1.2" id="configurations_0">
+
+    
+<instance XML_version="1.2" desc="C67xx CPU Cycle Accurate Simulator, Little Endian" href="configurations/tisim_c67xxle.xml" id="C67xx CPU Cycle Accurate Simulator, Little Endian" xml="tisim_c67xxle.xml" xmlpath="configurations"/>
+    <configuration XML_version="1.2" description="Simulates the C67xx core in a cycle accurate manner. Supports a flat memory system. Does not simulate the cache system and any peripherals. Suitable for core level algorithm development and benchmarking for any C67x based device. &#10; Use the device configurations for device level application development and benchmarking." id="C67xx CPU Cycle Accurate Simulator, Little Endian">
+        <connection XML_version="1.2" desc="C67xx CPU Cycle Accurate Simulator, Little Endian_0" id="C67xx CPU Cycle Accurate Simulator, Little Endian"/>
+    </configuration>
+</configurations>
