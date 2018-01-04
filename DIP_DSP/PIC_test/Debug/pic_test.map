@@ -1,17 +1,17 @@
 ******************************************************************************
                TMS320C6x Linker PC v7.4.4                      
 ******************************************************************************
->> Linked Wed Jan 03 18:29:28 2018
+>> Linked Thu Jan 04 17:56:44 2018
 
 OUTPUT FILE NAME:   <pic_test.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 00000aa0
+ENTRY POINT SYMBOL: "_c_int00"  address: 00020fa0
 
 
 MEMORY CONFIGURATION
 
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
-  RAM                   00000001   fffffffe  00000ffc  fffff002  RWIX
+  RAM                   00000001   fffffffe  00021083  fffdef7b  RWIX
 
 
 SECTION ALLOCATION MAP
@@ -23,86 +23,98 @@ section   page    origin      length       input sections
 
 .data      0    00000008    00000000     UNINITIALIZED
 
-.bss       0    00000008    00000008     UNINITIALIZED
-                  00000008    00000008     main.obj (.bss)
+.stack     0    00000008    0000ffff     UNINITIALIZED
+                  00000008    00000008     rts6400.lib : boot.obj (.stack)
+                  00000010    0000fff7     --HOLE--
 
-.text      0    00000020    00000b40     
-                  00000020    000005e0     main.obj (.text)
-                  00000600    00000100     rts6400.lib : divi.obj (.text:__divi)
-                  00000700    000000e0                 : autoinit.obj (.text:__auto_init)
-                  000007e0    000000e0                 : memcpy64.obj (.text:_memcpy)
-                  000008c0    000000c0                 : exit.obj (.text:_exit)
-                  00000980    000000a0                 : cpy_tbl.obj (.text:_copy_in)
-                  00000a20    00000080                 : cpp_init.obj (.text:___TI_cpp_init)
-                  00000aa0    00000060                 : boot.obj (.text:_c_int00)
-                  00000b00    00000040                 : args_main.obj (.text:__args_main)
-                  00000b40    00000020                 : exit.obj (.text:_abort)
+.cinit     0    00010008    00008084     
+                  00010008    0000804c     main.obj (.cinit)
+                  00018054    00000004     --HOLE-- [fill = 0]
+                  00018058    0000002c     rts6400.lib : exit.obj (.cinit)
+                  00018084    00000004     --HOLE-- [fill = 0]
+                  00018088    00000004     (.pad.cinit) [fill = 0]
 
-.stack     0    00000b60    00000400     UNINITIALIZED
-                  00000b60    00000008     rts6400.lib : boot.obj (.stack)
-                  00000b68    000003f8     --HOLE--
+.far       0    00018090    00008034     UNINITIALIZED
+                  00018090    00008028     main.obj (.far)
+                  000200b8    0000000c     rts6400.lib : exit.obj (.far)
 
-.cinit     0    00000f60    00000084     
-                  00000f60    0000004c     main.obj (.cinit)
-                  00000fac    00000004     --HOLE-- [fill = 0]
-                  00000fb0    0000002c     rts6400.lib : exit.obj (.cinit)
-                  00000fdc    00000004     --HOLE-- [fill = 0]
-                  00000fe0    00000004     (.pad.cinit) [fill = 0]
+.bss       0    000200c8    0000000c     UNINITIALIZED
+                  000200c8    0000000c     main.obj (.bss)
 
-.far       0    00000fe8    00000030     UNINITIALIZED
-                  00000fe8    00000024     main.obj (.far)
-                  0000100c    0000000c     rts6400.lib : exit.obj (.far)
+.text      0    000200e0    00000fc0     
+                  000200e0    000006e0     main.obj (.text)
+                  000207c0    00000240     rts6400.lib : mpyf.obj (.text:__mpyf)
+                  00020a00    00000100                 : divi.obj (.text:__divi)
+                  00020b00    000000e0                 : autoinit.obj (.text:__auto_init)
+                  00020be0    000000e0                 : memcpy64.obj (.text:_memcpy)
+                  00020cc0    000000c0                 : exit.obj (.text:_exit)
+                  00020d80    000000a0                 : fixfu.obj (.text:__fixfu)
+                  00020e20    000000a0                 : cpy_tbl.obj (.text:_copy_in)
+                  00020ec0    00000080                 : cpp_init.obj (.text:___TI_cpp_init)
+                  00020f40    00000060                 : frcmpyf.obj (.text:__frcmpyf)
+                  00020fa0    00000060                 : boot.obj (.text:_c_int00)
+                  00021000    00000040                 : args_main.obj (.text:__args_main)
+                  00021040    00000040                 : fltuf.obj (.text:__fltuf)
+                  00021080    00000020                 : exit.obj (.text:_abort)
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
 
 address    name
 --------   ----
-00000008   $bss
-00000008   .bss
+000200c8   $bss
+000200c8   .bss
 00000008   .data
-00000020   .text
-00000b40   C$$EXIT
-00000020   _Img_smooth
-00000f60   __STACK_END
-00000400   __STACK_SIZE
+000200e0   .text
+00021080   C$$EXIT
+000200e0   _Img_smooth
+00010007   __STACK_END
+0000ffff   __STACK_SIZE
 00000001   __TI_args_main
-00000a20   ___TI_cpp_init
-00001014   ___TI_enable_exit_profile_output
+00020ec0   ___TI_cpp_init
+000200c0   ___TI_enable_exit_profile_output
 ffffffff   ___TI_pprof_out_hndl
 ffffffff   ___TI_prof_data_size
 ffffffff   ___TI_prof_data_start
 ffffffff   ___binit__
-00000008   ___bss__
+000200c8   ___bss__
 ffffffff   ___c_args__
-00000f60   ___cinit__
+00010008   ___cinit__
 00000008   ___data__
 00000008   ___edata__
-00000010   ___end__
-00000b60   ___etext__
+000200d4   ___end__
+000210a0   ___etext__
 ffffffff   ___pinit__
-00000020   ___text__
-00000b00   __args_main
-00000700   __auto_init
-00000600   __c6xabi_divi
-0000100c   __cleanup_ptr
-00000600   __divi
-00001010   __dtors_ptr
-00000b60   __stack
-00000b40   _abort
-00000aa0   _c_int00
-00000fe8   _coefArray
-00000980   _copy_in
-000008c0   _exit
-00000008   _img
-0000000c   _img_smooth
-000005c0   _main
-000007e0   _memcpy
+000200e0   ___text__
+00021000   __args_main
+00020b00   __auto_init
+00020a00   __c6xabi_divi
+000200b8   __cleanup_ptr
+00020a00   __divi
+000200bc   __dtors_ptr
+00020d80   __fixfu
+00021040   __fltuf
+00020f40   __frcmpyf
+000207c0   __mpyf
+00000008   __stack
+00021080   _abort
+00020680   _add_coswindow
+00020fa0   _c_int00
+00018090   _coefArray
+00020e20   _copy_in
+000180b8   _cos_window_64_64
+00020cc0   _exit
+0001c0b8   _gaus_label_64_64
+000200c8   _img
+000200cc   _img_smooth
+000200d0   _img_with_window
+00020728   _main
+00020be0   _memcpy
 ffffffff   binit
-00000f60   cinit
+00010008   cinit
 00000008   edata
-00000010   end
-00000b60   etext
+000200d4   end
+000210a0   etext
 ffffffff   pinit
 
 
@@ -111,43 +123,51 @@ GLOBAL SYMBOLS: SORTED BY Symbol Address
 address    name
 --------   ----
 00000001   __TI_args_main
-00000008   $bss
-00000008   .bss
 00000008   .data
-00000008   ___bss__
 00000008   ___data__
 00000008   ___edata__
-00000008   _img
+00000008   __stack
 00000008   edata
-0000000c   _img_smooth
-00000010   ___end__
-00000010   end
-00000020   .text
-00000020   _Img_smooth
-00000020   ___text__
-00000400   __STACK_SIZE
-000005c0   _main
-00000600   __c6xabi_divi
-00000600   __divi
-00000700   __auto_init
-000007e0   _memcpy
-000008c0   _exit
-00000980   _copy_in
-00000a20   ___TI_cpp_init
-00000aa0   _c_int00
-00000b00   __args_main
-00000b40   C$$EXIT
-00000b40   _abort
-00000b60   ___etext__
-00000b60   __stack
-00000b60   etext
-00000f60   __STACK_END
-00000f60   ___cinit__
-00000f60   cinit
-00000fe8   _coefArray
-0000100c   __cleanup_ptr
-00001010   __dtors_ptr
-00001014   ___TI_enable_exit_profile_output
+0000ffff   __STACK_SIZE
+00010007   __STACK_END
+00010008   ___cinit__
+00010008   cinit
+00018090   _coefArray
+000180b8   _cos_window_64_64
+0001c0b8   _gaus_label_64_64
+000200b8   __cleanup_ptr
+000200bc   __dtors_ptr
+000200c0   ___TI_enable_exit_profile_output
+000200c8   $bss
+000200c8   .bss
+000200c8   ___bss__
+000200c8   _img
+000200cc   _img_smooth
+000200d0   _img_with_window
+000200d4   ___end__
+000200d4   end
+000200e0   .text
+000200e0   _Img_smooth
+000200e0   ___text__
+00020680   _add_coswindow
+00020728   _main
+000207c0   __mpyf
+00020a00   __c6xabi_divi
+00020a00   __divi
+00020b00   __auto_init
+00020be0   _memcpy
+00020cc0   _exit
+00020d80   __fixfu
+00020e20   _copy_in
+00020ec0   ___TI_cpp_init
+00020f40   __frcmpyf
+00020fa0   _c_int00
+00021000   __args_main
+00021040   __fltuf
+00021080   C$$EXIT
+00021080   _abort
+000210a0   ___etext__
+000210a0   etext
 ffffffff   ___TI_pprof_out_hndl
 ffffffff   ___TI_prof_data_size
 ffffffff   ___TI_prof_data_start
@@ -157,4 +177,4 @@ ffffffff   ___pinit__
 ffffffff   binit
 ffffffff   pinit
 
-[46 symbols]
+[54 symbols]

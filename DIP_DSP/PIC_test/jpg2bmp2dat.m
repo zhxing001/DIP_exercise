@@ -1,7 +1,7 @@
 clear
 clc
-I=imread('img.bmp');
-I=imresize(I,[100,100]);
+I=imread('lena2.bmp');
+I=imresize(I,[64,64]);
 [s1,s2]=size(I);
 Num=s1*s2/4;
 fid=fopen('img.dat','w');

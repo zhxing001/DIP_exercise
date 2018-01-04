@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configurations XML_version="1.2" id="configurations_0">
-
-    
-<instance XML_version="1.2" desc="C67xx CPU Cycle Accurate Simulator, Little Endian" href="configurations/tisim_c67xxle.xml" id="C67xx CPU Cycle Accurate Simulator, Little Endian" xml="tisim_c67xxle.xml" xmlpath="configurations"/>
-    <configuration XML_version="1.2" description="Simulates the C67xx core in a cycle accurate manner. Supports a flat memory system. Does not simulate the cache system and any peripherals. Suitable for core level algorithm development and benchmarking for any C67x based device. &#10; Use the device configurations for device level application development and benchmarking." id="C67xx CPU Cycle Accurate Simulator, Little Endian">
-        <connection XML_version="1.2" desc="C67xx CPU Cycle Accurate Simulator, Little Endian_0" id="C67xx CPU Cycle Accurate Simulator, Little Endian"/>
+<instance XML_version="1.2" desc="C6455 Device Cycle Accurate Simulator, Little Endian" href="configurations/tisim_c6455le.xml" id="C6455 Device Cycle Accurate Simulator, Little Endian" xml="tisim_c6455le.xml" xmlpath="configurations"/>
+    <configuration XML_version="1.2" description="Simulates the C64+ core, Megamodule (L1P Program Cache, L1D Data cache, L2 Unified Mapped RAM/Cache, L2 ROM), SCR, EDMA3CC, EDMATC(0-3), Timers(2), EMIFA, EMIFB, TCP, VCP, McBSP(2) and external memory. Does not model SRIO, EMAC, PCI, HPI, UTOPIA and I2C. This is a device cycle accurate configuration and hence useful for applications development and benchmarking at the device level. &#10; Note on other configurations for this processor: &#10; * For core level algorithm development / benchmarking, it is recommended to use the &quot;C64x+ CPU Cycle Accurate Simulator&quot; for faster simulations than the device configuration. &#10; * For Megamodule level algorithm development/ benchmarking, it is recommended to use the &quot;C64x+ Megamodule Cycle Accurate Simulator&quot;, as this will be faster than the device simulator. " id="C6455 Device Cycle Accurate Simulator, Little Endian">
+        <connection XML_version="1.2" desc="C6455 Device Cycle Accurate Simulator, Little Endian_0" id="C6455 Device Cycle Accurate Simulator, Little Endian"/>
     </configuration>
 </configurations>
