@@ -14,6 +14,7 @@ main.obj: C:/ti/ccsv5/tools/compiler/c6000_7.4.4/include/mathl.h
 main.obj: C:/ti/ccsv5/tools/compiler/c6000_7.4.4/include/unaccess.h
 main.obj: ../ave_filter.h
 main.obj: ../windows.h
+main.obj: ../algor.h
 
 ../main.c: 
 C:/ti/ccsv5/tools/compiler/c6000_7.4.4/include/stdio.h: 
@@ -29,3 +30,4 @@ C:/ti/ccsv5/tools/compiler/c6000_7.4.4/include/mathl.h:
 C:/ti/ccsv5/tools/compiler/c6000_7.4.4/include/unaccess.h: 
 ../ave_filter.h: 
 ../windows.h: 
+../algor.h: 
