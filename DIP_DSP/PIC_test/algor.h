@@ -3,7 +3,16 @@
  *
  *  Created on: 2018-1-5
  *      Author: zhxing
- *      一些要用到的算法。
+ *      一些要用到的操作：
+ *
+ *      1. max_index  max(float *p,int nums)
+ *       	求最大值和索引
+ *      2. floar2uchar(float *f,unsigned char *u,int nums)
+ *      	float->uchar
+ *      3. element_wise_product(float *x1,float *x2,float *y,int num)
+ *      	相乘，对应位相乘，实数。
+ *
+ *
  */
 
 #ifndef ALGOR_H_
@@ -51,6 +60,17 @@ void floar2uchar(float *f,unsigned char *u,int nums)
 }
 //-------------【2】float->uchar---------------------------------
 
+
+//-------------【3】element_wise_product---------------------------------
+void element_wise_product(float *x1,float *x2,float *y,int num)
+{
+	int i=0;
+	for(i=0;i<num;i++)
+	{
+		y[i]=x1[i]*x2[i];
+	}
+}
+//-------------【3】element_wise_product---------------------------------
 
 
 #endif /* ALGOR_H_ */
