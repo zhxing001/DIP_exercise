@@ -27,10 +27,12 @@ int main()
 	
 	Mat kernel = (Mat_<float>(3, 3) << 0, -1, 0, -1, 5, -1, 0, -1, 0);
 	filter2D(Img_gray, Img_g, -1, kernel);
-	
 	threshold(Img_g, Img_g, 150, 255, THRESH_BINARY_INV);         //二值阈值化，这个阈值自己选,这里是反着的，因为一般是白纸黑字
 
+	imshow("阈值化", Img_g);
+
 	auto kernel_dilate = getStructuringElement(MORPH_CROSS, Size(3, 3));    //膨胀核
+	
 	dilate(Img_g, Img_g, kernel_dilate);           //膨胀，防止有断线
 	dilate(Img_g, Img_g, kernel_dilate);
 
@@ -44,17 +46,17 @@ int main()
 	/*for (auto h : hierarchy)
 		cout << h << endl;*/
 
-	drawContours(Img, contours, -1, Scalar(0, 0, 255), 2);
+	drawContours(Img, contours, -1, Scalar(0, 0, 255), 1);
 	
 
-	vector<vector<Point>>  rec_contours;
-	for (int i = 0; i < hierarchy.size(); i++)
-	{
-		if (hierarchy[i][3] == 0)     //父轮廓是0号轮廓的话，就是小矩形
-		{
-			rec_contours.push_back(contours[i]);	
-		}
-	}
+	//vector<vector<Point>>  rec_contours;
+	//for (int i = 0; i < hierarchy.size(); i++)
+	//{
+	//	if (hierarchy[i][3] == 0)     //父轮廓是0号轮廓的话，就是小矩形
+	//	{
+	//		rec_contours.push_back(contours[i]);	
+	//	}
+	//}
 
 	vector<vector<Point>> num_contours;
 	vector<Rect>  RecOfNum;
@@ -62,10 +64,10 @@ int main()
 	vector<pair<Point, Rect>>  IndexAndPos;
 	auto Round = boundingRect(contours[0]);     //外边缘
 
-	cout << "宽度\t" << Round.width << endl;
-	cout << "高度\t" << Round.height << endl;
+	/*cout << "宽度\t" << Round.width << endl;
+	cout << "高度\t" << Round.height << endl;*/
 
-	rectangle(Img, Round, Scalar(255, 0, 124));
+	rectangle(Img, Round, Scalar(255, 0, 255));
 	namedWindow("co", 2);
 	imshow("co", Img);
 
@@ -94,8 +96,10 @@ int main()
 			
 			resize(srcImg(tmp), ImgROI, Size(20, 20));
 			
-			imwrite("C:\\Users\\zhxing\\Desktop\\matlab_exercise\\opencv_c++\\ShuDu\\ShuDu\\img\\"+to_string(index_xy.x) + "_"+to_string(index_xy.y)+".jpg", ImgROI);
-			rectangle(Img, tmp, Scalar(255, 255, 0));
+			//imwrite("C:\\Users\\zhxing\\Desktop\\DIP_exercise\\opencv_c++\\ShuDu\\ShuDu\\img\\"+to_string(index_xy.x) + "_"+to_string(index_xy.y)+".jpg", ImgROI);
+			//测试用，这里确实可以得到位置对应的图像
+
+			rectangle(srcImg, tmp, Scalar(255, 255, 0));
 			RecOfNum.push_back(tmp);
 		}
 	}
@@ -103,12 +107,8 @@ int main()
 	
 
 
-
-	
-	drawContours(Img, rec_contours, -1, Scalar(0, 255, 0), 2);
 	//namedWindow("co", 2);
-	imshow("co", Img);
-	cout << "检测到的小方格数目为：\t" << rec_contours.size() << endl;
+	imshow("co", srcImg);
 
 	cout << "检测到的数字的数目是：\t" << num_contours.size() << endl;
 	
