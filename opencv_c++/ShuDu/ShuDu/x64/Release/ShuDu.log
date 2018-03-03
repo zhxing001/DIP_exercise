@@ -1,10 +1,8 @@
 ﻿  main.cpp
-main.cpp(89): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-main.cpp(90): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
   正在生成代码
-  6 of 384 functions ( 1.6%) were compiled, the rest were copied from previous compilation.
+  12 of 440 functions ( 2.7%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    3 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   ShuDu.vcxproj -> C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\ShuDu\x64\Release\ShuDu.exe
   ShuDu.vcxproj -> C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\ShuDu\x64\Release\ShuDu.pdb (Full PDB)
