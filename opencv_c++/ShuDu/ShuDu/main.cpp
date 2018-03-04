@@ -7,12 +7,14 @@
 #include<opencv2\highgui\highgui.hpp>
 #include<opencv2\core\core.hpp>
 #include<opencv2\imgproc\imgproc.hpp>
-#include<opencv\ml.h>      //knn头文件
+//#include<opencv\ml.h>      //knn头文件
+#include<opencv2\ml.hpp>
 #include<iostream>
 #include<string>
 #include<vector>
 #include<map>
 #include<algorithm>
+#include<numeric>
 
 
 using namespace cv;
@@ -31,10 +33,11 @@ int main()
 	Mat Img_gray; 
 	Mat Img_g;
 	
-	srcImg = imread("5.jpg",0);
+	srcImg = imread("2.jpg",0);
 	srcImg.copyTo(Img_gray);
-	//cvtColor(Img, Img_gray,COLOR_BGR2GRAY);
+	//cvtColor(srcImg, Img_gray,COLOR_BGR2GRAY);
 	
+	cout << Img_gray.type() << endl;
 	Mat kernel = (Mat_<float>(3, 3) << 0, -1, 0, -1, 5, -1, 0, -1, 0);
 	filter2D(Img_gray, Img_g, -1, kernel);
 	threshold(Img_g, Img_g, 150, 255, THRESH_BINARY_INV);         //二值阈值化，这个阈值自己选,这里是反着的，因为一般是白纸黑字
@@ -77,8 +80,8 @@ int main()
 	vector<Point>  PosOfNum;
 	vector<Point>  UpLeftPosOfNum;
 
+	//---------【获得81个矩形对应的位置，矩阵的位置和原图位置对应】----------
 	vector<Rect>  Pos;
-
 	for (int i = 0; i < hierarchy.size(); i++)
 	{
 		Rect tmp;
@@ -87,9 +90,7 @@ int main()
 			Pos.push_back(boundingRect(contours[i]));
 		}
 	}
-	
 	//按照y来排序，一排一排都链在一起
-
 	sort(Pos.begin(), Pos.end(), [](Rect &a, Rect &b)->bool{return a.y < b.y; });
 	cout << "小矩形的个数是" << Pos.size() << endl;
 
@@ -99,7 +100,6 @@ int main()
 	{
 		PosMat[index++].assign(Pos.begin() + i, Pos.begin() + i + 9);    //赋值每一行
 	}
-	cout <<"pos的size是\t"<< PosMat.size() << endl;
 	
 	for (int i=0;i<9;i++)
 	{
@@ -111,7 +111,7 @@ int main()
 
 
 
-
+	//---------------【检测数字位置，并提取数字】----------------------
 	for (int i = 0; i < hierarchy.size(); i++)
 	{
 		if (hierarchy[i][3] == 0&&hierarchy[i][2]!=-1)    
@@ -167,7 +167,8 @@ int main()
 	//-----【制作训练数据】-------------------------
 	vector<vector<Mat>>  TrainImgMat(10,vector<Mat>());
 	getTrainImg(TrainImgMat);
-	cout <<"类型为"<< TrainImgMat[0][0].type() << endl;
+
+	
 	
 
 	Mat TrainImg(Size(200, 200), TrainImgMat[0][0].type());
@@ -178,7 +179,7 @@ int main()
 			TrainImgMat[i][j].copyTo(TrainImg(Rect(i*20,j*20,20,20)));
 		}
 	}
-	//imshow("test", TrainImg);
+	imshow("test", TrainImg);
 
 
 	Mat trainData;
@@ -189,16 +190,16 @@ int main()
 		for (int j = 0; j < 10; j++)
 		{
 			trainData.push_back(TrainImgMat[j][i].reshape(0,1));
-			imshow(" s", TrainImgMat[j][i]);
+			//imshow(" s", TrainImgMat[j][i]);
 			Label.push_back(i);
 		}
 	}
 
 	imshow("das",trainData);
-	cout << "类型\t" << trainData.type() << endl;
+	
 	//转换成浮点备用
-	trainData.convertTo(trainData, 5);
-	cout <<"类型\t"<< trainData.type() << endl;
+	trainData.convertTo(trainData, CV_32F);
+	
 
 	
 	
@@ -210,28 +211,26 @@ int main()
 	knn->setIsClassifier(true);
 	knn->train(tData);
 
+
+
+	//---【检测方法1】--------
+	/*Mat predictRes;
+	knn->findNearest(TestData, 4, predictRes);
+	cout << predictRes;*/
+	
+
+	//----【检测方法2】-----------------
 	vector<int>  PredicrRes;
 	for (int i = 0; i < TestData.rows; i++)
 	{
 		Mat tmp = TestData.row(i);
 		int response = knn->predict(tmp);
 		PredicrRes.push_back(response);
-		cout << response <<"\t"<<i<< endl;
+		//cout << response <<"\t"<<i<< endl;
 
 	}
 
-	cout << "size" << PredicrRes.size() << endl;
 	
-	for (int i = 0; i < PredicrRes.size(); i++)
-	{
-		
-		
-		imwrite(".\\pre\\" + to_string(PredicrRes[i]) + ".jpg",Numbers[i]);
-		
-	}
-
-
-
 	//重构数独矩阵
 	vector<vector<int>> ShuDuMat(9,vector<int>());
 	
@@ -248,7 +247,7 @@ int main()
 		ShuDuMat[PosOfNum[i].y][PosOfNum[i].x] = PredicrRes[i];
 	}
 
-
+	cout << "重构矩阵" << endl;
 	for (auto s : ShuDuMat)
 	{
 		for (auto t : s)
@@ -256,9 +255,7 @@ int main()
 		cout << endl;
 	}
 
-	
-	for (auto s : PosOfNum)
-		cout << s << endl;
+
 
 
 	//识别结果
@@ -267,8 +264,8 @@ int main()
 	for (int i = 0; i < PredicrRes.size(); i++)
 	{
 		string text = to_string(PredicrRes[i]);
-		cout << text << " ";
-		putText(srcImg_color, text, UpLeftPosOfNum[i], FONT_ITALIC, 1, Scalar(0, 0, 255),1);
+		//cout << text << " ";
+		putText(srcImg_color, text, UpLeftPosOfNum[i], FONT_ITALIC, 1, Scalar(0, 0, 255),2);
 	}
 	
 	imshow("原图数字检测结果", srcImg_color);
@@ -285,6 +282,10 @@ int main()
 		cout << endl;
 	}
 
+	//验证结果
+	cout << "验证结果" << endl;
+	for (auto s : res)
+		cout << "行和：\t" << accumulate(s.begin(), s.end(), 0) << endl;
 
 	Mat ResultImg;
 	cvtColor(srcImg, ResultImg, CV_GRAY2BGR);
@@ -391,7 +392,6 @@ bool isPlace(int count,vector<vector<int>> &map) {
 
 void backtrace(int count, vector<vector<int>> &map, vector<vector<int>> &res) {
 		if (count == 81) {
-			cout << "结果：" << endl;
 			for (int i = 0; i < 9; ++i) {
 				for (int j = 0; j < 9; ++j) { 
 					res[i].push_back(map[i][j]);

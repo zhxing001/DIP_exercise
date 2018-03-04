@@ -1,9 +1,9 @@
 ﻿  main.cpp
-main.cpp(125): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-main.cpp(126): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-main.cpp(217): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
+main.cpp(128): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+main.cpp(129): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+main.cpp(230): warning C4244: “初始化”: 从“float”转换到“int”，可能丢失数据
   正在生成代码
-  7 of 1002 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+  7 of 995 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
