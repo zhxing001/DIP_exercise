@@ -11,12 +11,18 @@
 #include<iostream>
 #include<string>
 #include<vector>
+#include<map>
+#include<algorithm>
+
 
 using namespace cv;
 using namespace std;
 using namespace cv::ml;
 
 void getTrainImg(vector<vector<Mat>>  &TrainImgMat);
+bool isPlace(int count, vector<vector<int>> &map);
+void backtrace(int count, vector<vector<int>> &map, vector<vector<int>> &res);
+
 
 int main()
 {
@@ -25,7 +31,7 @@ int main()
 	Mat Img_gray; 
 	Mat Img_g;
 	
-	srcImg = imread("2.jpg",0);
+	srcImg = imread("5.jpg",0);
 	srcImg.copyTo(Img_gray);
 	//cvtColor(Img, Img_gray,COLOR_BGR2GRAY);
 	
@@ -33,7 +39,7 @@ int main()
 	filter2D(Img_gray, Img_g, -1, kernel);
 	threshold(Img_g, Img_g, 150, 255, THRESH_BINARY_INV);         //二值阈值化，这个阈值自己选,这里是反着的，因为一般是白纸黑字
 
-	//imshow("阈值化", Img_g);
+	imshow("阈值化", Img_g);
 
 	auto kernel_dilate = getStructuringElement(MORPH_CROSS, Size(3, 3));    //膨胀核
 	
@@ -59,16 +65,52 @@ int main()
 	cout << "高度\t" << Round.height << endl;*/
 
 	rectangle(srcImg, Round, Scalar(255, 0, 255));
-	namedWindow("co", 2);
-	//imshow("co", Img);
+	
 
 	int index_x;
 	int index_y;
 	Point index_xy;
+	vector<Point> PosOfNum_true;
 	
 
 	vector<Mat> Numbers;
 	vector<Point>  PosOfNum;
+	vector<Point>  UpLeftPosOfNum;
+
+	vector<Rect>  Pos;
+
+	for (int i = 0; i < hierarchy.size(); i++)
+	{
+		Rect tmp;
+		if (hierarchy[i][3] == 0)
+		{
+			Pos.push_back(boundingRect(contours[i]));
+		}
+	}
+	
+	//按照y来排序，一排一排都链在一起
+
+	sort(Pos.begin(), Pos.end(), [](Rect &a, Rect &b)->bool{return a.y < b.y; });
+	cout << "小矩形的个数是" << Pos.size() << endl;
+
+	vector<vector<Rect>> PosMat(9,vector<Rect>());
+	int index = 0;
+	for (int i = 0; i < 81; i+=9)
+	{
+		PosMat[index++].assign(Pos.begin() + i, Pos.begin() + i + 9);    //赋值每一行
+	}
+	cout <<"pos的size是\t"<< PosMat.size() << endl;
+	
+	for (int i=0;i<9;i++)
+	{
+		sort(PosMat[i].begin(), PosMat[i].end(), [](Rect &a, Rect &b)->bool {return a.x < b.x; });  //每一行按照x排列
+		cout << PosMat[i].size() << endl;
+	}
+
+
+
+
+
 
 	for (int i = 0; i < hierarchy.size(); i++)
 	{
@@ -78,14 +120,14 @@ int main()
 			
 			num_contours.push_back(contours[hierarchy[i][2]]);
 			tmp = boundingRect(contours[hierarchy[i][2]]);
-			
+			UpLeftPosOfNum.push_back(Point(tmp.x, tmp.y));
 			//每个数字的质心,转换为坐标，具体方法是一种算比例的方法，还不知道凑效不
 			index_x = double((tmp.x + tmp.width / 2))/Round.width*9;
 			index_y = double((tmp.y + tmp.height / 2)) / Round.height * 9;
 			index_xy.x = index_x;
 			index_xy.y = index_y;
-			cout << index_x << "--" << index_y << endl;
-
+			
+			
 			IndexAndPos.push_back(make_pair(index_xy, tmp));    //坐标和对应的矩形
 			
 			Mat ImgROI;
@@ -108,17 +150,16 @@ int main()
 	{
 		TestData.push_back(nums.reshape(0, 1));
 	}
-	imshow("test",TestData);
+	
 	TestData.convertTo(TestData, CV_32F);
-	cout <<"测试数据类型"<<TestData.type() << endl;
-	//cout << "测试数据大小--应为" << Point( Numbers.size(),400) <<"\t实际是："<<TestData.size<<endl;
+
 
 	
 
 
 
 	//namedWindow("co", 2);
-	imshow("co", srcImg);
+	
 
 	cout << "检测到的数字的数目是：\t" << num_contours.size() << endl;
 	
@@ -165,7 +206,7 @@ int main()
 	Ptr<TrainData> tData = TrainData::create(trainData, ROW_SAMPLE, Label);          //
 
 	Ptr<ml::KNearest> knn = ml::KNearest::create();
-	knn->setDefaultK(7);        
+	knn->setDefaultK(4);        
 	knn->setIsClassifier(true);
 	knn->train(tData);
 
@@ -191,10 +232,76 @@ int main()
 
 
 
+	//重构数独矩阵
+	vector<vector<int>> ShuDuMat(9,vector<int>());
+	
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = 0; j < 9; j++)
+		{
+			ShuDuMat[i].push_back(0);
+
+		}
+	}
+	for (int i = 0; i < PredicrRes.size(); i++)
+	{
+		ShuDuMat[PosOfNum[i].y][PosOfNum[i].x] = PredicrRes[i];
+	}
+
+
+	for (auto s : ShuDuMat)
+	{
+		for (auto t : s)
+			cout << t << "  ";
+		cout << endl;
+	}
+
+	
+	for (auto s : PosOfNum)
+		cout << s << endl;
+
+
+	//识别结果
+	Mat srcImg_color;
+	cvtColor(srcImg, srcImg_color, CV_GRAY2BGR);
+	for (int i = 0; i < PredicrRes.size(); i++)
+	{
+		string text = to_string(PredicrRes[i]);
+		cout << text << " ";
+		putText(srcImg_color, text, UpLeftPosOfNum[i], FONT_ITALIC, 1, Scalar(0, 0, 255),1);
+	}
+	
+	imshow("原图数字检测结果", srcImg_color);
+
+	vector<vector<int>>  res(9,vector<int>());
+	backtrace(0, ShuDuMat,res);
+
+	//数独结果输出
+	cout << "数独结果 :"<< endl;
+	for (auto s : res)
+	{
+		for (auto t : s)
+			cout << t << "  ";
+		cout << endl;
+	}
+
+
+	Mat ResultImg;
+	cvtColor(srcImg, ResultImg, CV_GRAY2BGR);
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = 0; j < 9; j++)
+		{
+			string text = to_string(res[i][j]);
+			putText(ResultImg, text, Point(PosMat[i][j].x, PosMat[i][j].y+15), FONT_ITALIC, 1, Scalar(0, 0, 255), 2);	
+		}
+		
+	}
+
+	imshow("最终求解结果", ResultImg);
+
 
 	waitKey();
-	
-	
 	return 0;
 }
 
@@ -249,3 +356,61 @@ void getTrainImg(vector<vector<Mat>>  &TrainImgMat)
 		img0_9.clear();	
 	}
 }
+
+
+bool isPlace(int count,vector<vector<int>> &map) {
+		int row = count / 9;
+		int col = count % 9;
+		int j;
+		//同一行  
+		for (j = 0; j < 9; ++j) {
+			if (map[row][j] == map[row][col] && j != col) {
+				return false;
+			}
+		}
+		//同一列  
+		for (j = 0; j < 9; ++j) {
+			if (map[j][col] == map[row][col] && j != row) {
+				return false;
+			}
+		}
+		//同一小格  
+		int tempRow = row / 3 * 3;
+		int tempCol = col / 3 * 3;
+		for (j = tempRow; j < tempRow + 3; ++j) {
+			for (int k = tempCol; k < tempCol + 3; ++k) {
+				if (map[j][k] == map[row][col] && j != row && k != col) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+
+
+void backtrace(int count, vector<vector<int>> &map, vector<vector<int>> &res) {
+		if (count == 81) {
+			cout << "结果：" << endl;
+			for (int i = 0; i < 9; ++i) {
+				for (int j = 0; j < 9; ++j) { 
+					res[i].push_back(map[i][j]);
+				}	
+			}
+			return;
+		}
+		int row = count / 9;
+		int col = count % 9;
+		if (map[row][col] == 0) {
+			for (int i = 1; i <= 9; ++i) {
+				map[row][col] = i;//赋值  
+				if (isPlace(count, map)) {//可以放  
+					backtrace(count + 1, map,res);//进入下一层  
+				}
+			}
+			map[row][col] = 0;//回溯  
+		}
+		else {
+			backtrace(count + 1,map,res);
+		}
+	}
