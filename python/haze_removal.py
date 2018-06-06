@@ -31,6 +31,7 @@ def guidedfilter(I, p, r, eps):
     height, width = I.shape  
     m_I = cv2.boxFilter(I, -1, (r,r))  
     m_p = cv2.boxFilter(p, -1, (r,r))  
+    
     m_Ip = cv2.boxFilter(I*p, -1, (r,r))  
     cov_Ip = m_Ip-m_I*m_p  
    
@@ -71,13 +72,15 @@ def deHaze(m, r=81, eps=0.001, w=0.95, maxV1=0.80, bGamma=False):
     return Y  
    
 if __name__ == '__main__':  
-    img=cv2.imread('test.jpg')/255.0
+    img=cv2.imread('C:\\Users\\zhxing\\Desktop\\_DSC7702.JPG')/255.0
     start=time.time()
     m = deHaze(img)
     end=time.time()
     print('time_cost:\t'+str(end-start))
     m=m*255.0
-    m=np.uint8(m)
-    plt.imshow(m,`)
+# =============================================================================
+#     m=np.uint8(m)
+#     plt.imshow(m,'gray')
+# =============================================================================
     cv2.imwrite('defog.jpg', m) 
 

@@ -1,16 +1,7 @@
-﻿生成启动时间为 2018/6/6 17:17:32。
-     1>项目“C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\haze_move\haze_move.vcxproj”在节点 2 上(Build 个目标)。
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt foge_move.cpp main.cpp
-         main.cpp
-         foge_move.cpp
-         正在生成代码...
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Debug\haze_move.exe" /INCREMENTAL /NOLOGO opencv_world330.lib opencv_world330d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Debug\haze_move.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Debug\haze_move.lib" /MACHINE:X64 x64\Debug\foge_move.obj
-         x64\Debug\main.obj
-         haze_move.vcxproj -> C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Debug\haze_move.exe
-     1>已完成生成项目“C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\haze_move\haze_move.vcxproj”(Build 个目标)的操作。
-
-已成功生成。
-
-已用时间 00:00:02.80
+﻿  main.cpp
+cl : 命令行 warning D9028: 最小重新生成失败，正在转换为标准生成
+foge_move.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::erode(class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_OutputArray const &,class cv::debug_build_guard::_InputArray const &,class cv::Point_<int>,int,int,class cv::Scalar_<double> const &)" (?erode@cv@@YAXAEBV_InputArray@debug_build_guard@1@AEBV_OutputArray@31@0V?$Point_@H@1@HHAEBV?$Scalar_@N@1@@Z)，该符号在函数 "void __cdecl min_filter(class cv::Mat &,class cv::Mat &,int)" (?min_filter@@YAXAEAVMat@cv@@0H@Z) 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 "public: class cv::Mat __cdecl cv::debug_build_guard::_InputArray::getMat_(int)const " (?getMat_@_InputArray@debug_build_guard@cv@@QEBA?AVMat@3@H@Z)，该符号在函数 "public: class cv::Mat __cdecl cv::debug_build_guard::_InputArray::getMat(int)const " (?getMat@_InputArray@debug_build_guard@cv@@QEBA?AVMat@3@H@Z) 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 "public: int __cdecl cv::debug_build_guard::_InputArray::kind(void)const " (?kind@_InputArray@debug_build_guard@cv@@QEBAHXZ)，该符号在函数 "public: class cv::Mat __cdecl cv::debug_build_guard::_InputArray::getMat(int)const " (?getMat@_InputArray@debug_build_guard@cv@@QEBA?AVMat@3@H@Z) 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::imshow(class cv::String const &,class cv::debug_build_guard::_InputArray const &)" (?imshow@cv@@YAXAEBVString@1@AEBV_InputArray@debug_build_guard@1@@Z)，该符号在函数 main 中被引用
+C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\haze_move\x64\Debug\haze_move.exe : fatal error LNK1120: 4 个无法解析的外部命令

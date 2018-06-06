@@ -33,7 +33,53 @@ cv::Mat min_BGR(cv::Mat &src_img)
 		}
 		
 	}
-	std::cout << "done!";
+	std::cout << "done!"<<std::endl;
 	return res;
 
+}
+
+
+//导向滤波函数
+cv::Mat guide_filter(cv::Mat & img, cv::Mat & p, int r, double eps)
+{
+	cv::Mat img_32f, p_32f, res;
+	img.convertTo(img_32f, CV_32F);
+	p.convertTo(p_32f, CV_32F);
+	//都转换成32F方便后边做乘法
+
+
+	cv::Mat i_p, i2;
+	cv::multiply(img_32f, p_32f, i_p);
+	cv::multiply(p_32f, p_32f, i2);
+
+	int height = img.rows;
+	int width = img.cols;
+	cv::Size kernel_sz(2 * r + 1, 2 * r + 1);
+
+	//计算四个均值滤波，
+	cv::Mat m_Img, m_p, m_Ip, m_i2;    
+	cv::boxFilter(img, m_Img, CV_32F, kernel_sz);
+	cv::boxFilter(p, m_p, CV_32F, kernel_sz);
+	cv::boxFilter(i_p, m_Ip, CV_32F, kernel_sz);
+	cv::boxFilter(i2, m_i2, CV_32F, kernel_sz);
+	
+	//计算ip的协方差和img的方差
+	cv::Mat cov_ip = m_Ip - m_Img.mul(m_p);
+	cv::Mat var_i = m_i2 - m_Img.mul(m_Img);
+
+	//求a，b
+	cv::Mat a, b;
+	cv::divide(cov_ip, var_i+eps, a);
+	b = m_p - a.mul(m_Img);
+
+	//对包含像素i的所有a,b做平均(即对a和b做均值滤波)
+	cv::Mat mean_a, mean_b;
+	cv::boxFilter(a, mean_a, CV_32F, kernel_sz);
+	cv::boxFilter(b, mean_b, CV_32F, kernel_sz);
+
+	//计算输出
+	res = mean_a.mul(p_32f) + mean_b;
+	
+	return res;
+	
 }

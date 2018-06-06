@@ -14,10 +14,18 @@ int main()
 	res=min_BGR(img);
 	imshow("res", res);
 
-	Mat img_filter;
-	min_filter(res, img_filter, 6);
-	imshow("min_filter", img_filter);
 	
+	
+	cout << format( img(Rect(0, 0, 3, 3)), cv::Formatter::FMT_MATLAB) << endl;
+	cout << format( res(Rect(0, 0, 3, 3)), cv::Formatter::FMT_MATLAB) << endl;
+
+	Mat img_filter;
+	min_filter(res, img_filter, 7);
+	imshow("min_filter", img_filter);
+	cout << "done!" << endl;
+	
+
+
 	waitKey(0);
 	return 0;
 }
