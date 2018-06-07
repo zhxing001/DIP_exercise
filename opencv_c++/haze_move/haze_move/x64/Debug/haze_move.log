@@ -1,9 +1,13 @@
-﻿生成启动时间为 2018/6/7 8:58:18。
-     1>项目“C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\haze_move\haze_move.vcxproj”在节点 2 上(Build 个目标)。
-     1>Link:
-         haze_move.vcxproj -> C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Debug\haze_move.exe
-     1>已完成生成项目“C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\haze_move\haze_move.vcxproj”(Build 个目标)的操作。
-
-已成功生成。
-
-已用时间 00:00:00.09
+﻿  main.cpp
+  foge_move.cpp
+  正在生成代码...
+foge_move.obj : error LNK2019: 无法解析的外部符号 "public: void __cdecl cv::Mat::convertTo(class cv::debug_build_guard::_OutputArray const &,int,double,double)const " (?convertTo@Mat@cv@@QEBAXAEBV_OutputArray@debug_build_guard@2@HNN@Z)，该符号在函数 "void __cdecl getV1(class cv::Mat &,int,double,double,double)" (?getV1@@YAXAEAVMat@cv@@HNNN@Z) 中被引用
+foge_move.obj : error LNK2019: 无法解析的外部符号 "public: class cv::MatExpr __cdecl cv::Mat::mul(class cv::debug_build_guard::_InputArray const &,double)const " (?mul@Mat@cv@@QEBA?AVMatExpr@2@AEBV_InputArray@debug_build_guard@2@N@Z)，该符号在函数 "class cv::Mat __cdecl guide_filter(class cv::Mat &,class cv::Mat &,int,double)" (?guide_filter@@YA?AVMat@cv@@AEAV12@0HN@Z) 中被引用
+foge_move.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::multiply(class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_OutputArray const &,double,int)" (?multiply@cv@@YAXAEBV_InputArray@debug_build_guard@1@0AEBV_OutputArray@31@NH@Z)，该符号在函数 "class cv::Mat __cdecl guide_filter(class cv::Mat &,class cv::Mat &,int,double)" (?guide_filter@@YA?AVMat@cv@@AEAV12@0HN@Z) 中被引用
+foge_move.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::divide(class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_OutputArray const &,double,int)" (?divide@cv@@YAXAEBV_InputArray@debug_build_guard@1@0AEBV_OutputArray@31@NH@Z)，该符号在函数 "class cv::Mat __cdecl guide_filter(class cv::Mat &,class cv::Mat &,int,double)" (?guide_filter@@YA?AVMat@cv@@AEAV12@0HN@Z) 中被引用
+foge_move.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::boxFilter(class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_OutputArray const &,int,class cv::Size_<int>,class cv::Point_<int>,bool,int)" (?boxFilter@cv@@YAXAEBV_InputArray@debug_build_guard@1@AEBV_OutputArray@31@HV?$Size_@H@1@V?$Point_@H@1@_NH@Z)，该符号在函数 "class cv::Mat __cdecl guide_filter(class cv::Mat &,class cv::Mat &,int,double)" (?guide_filter@@YA?AVMat@cv@@AEAV12@0HN@Z) 中被引用
+foge_move.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::erode(class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_OutputArray const &,class cv::debug_build_guard::_InputArray const &,class cv::Point_<int>,int,int,class cv::Scalar_<double> const &)" (?erode@cv@@YAXAEBV_InputArray@debug_build_guard@1@AEBV_OutputArray@31@0V?$Point_@H@1@HHAEBV?$Scalar_@N@1@@Z)，该符号在函数 "void __cdecl min_filter(class cv::Mat &,class cv::Mat &,int)" (?min_filter@@YAXAEAVMat@cv@@0H@Z) 中被引用
+foge_move.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::calcHist(class cv::Mat const *,int,int const *,class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_OutputArray const &,int,int const *,float const * *,bool,bool)" (?calcHist@cv@@YAXPEBVMat@1@HPEBHAEBV_InputArray@debug_build_guard@1@AEBV_OutputArray@41@H1PEAPEBM_N5@Z)，该符号在函数 "void __cdecl getV1(class cv::Mat &,int,double,double,double)" (?getV1@@YAXAEAVMat@cv@@HNNN@Z) 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::imshow(class cv::String const &,class cv::debug_build_guard::_InputArray const &)" (?imshow@cv@@YAXAEBVString@1@AEBV_InputArray@debug_build_guard@1@@Z)，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl getV1(class cv::Mat &,int &,double,double &,double &)" (?getV1@@YAXAEAVMat@cv@@AEAHNAEAN2@Z)，该符号在函数 main 中被引用
+C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\haze_move\x64\Debug\haze_move.exe : fatal error LNK1120: 9 个无法解析的外部命令

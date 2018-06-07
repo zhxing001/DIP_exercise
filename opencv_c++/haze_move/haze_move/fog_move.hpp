@@ -12,4 +12,4 @@ cv::Mat min_BGR(cv::Mat &src_img);
 cv::Mat guide_filter(cv::Mat &img, cv::Mat &p, int r, double eps);
 
 //计算大气遮罩图像V1和光照值
-void getV1(cv::Mat &m, int &r, double eps, double &w, double &maxV1);
+void getV1(cv::Mat &m, int r, double eps, double w, double maxV1);

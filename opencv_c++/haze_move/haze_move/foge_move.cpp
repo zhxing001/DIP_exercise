@@ -1,4 +1,5 @@
 #include"fog_move.hpp"
+#include<opencv2\highgui\highgui.hpp>   //测试用
 
 
 //最小值滤波，实际上就是一个腐蚀的过程，直接借助opencv的腐蚀函数来做
@@ -45,7 +46,6 @@ cv::Mat min_BGR(cv::Mat &src_img)
 cv::Mat guide_filter(cv::Mat & img, cv::Mat & p, int r, double eps)
 {
 	cv::Mat img_32f, p_32f, res;
-	if()
 	img.convertTo(img_32f, CV_32F);
 	p.convertTo(p_32f, CV_32F);
 	//都转换成32F方便后边做乘法
@@ -86,7 +86,7 @@ cv::Mat guide_filter(cv::Mat & img, cv::Mat & p, int r, double eps)
 	return res;	
 }
 
-void getV1(cv::Mat &m, int &r, double eps, double &w, double &maxV1)
+void getV1(cv::Mat &m,int r, double eps,double w,double maxV1)
 {
 	cv::Mat V1 = min_BGR(m);    
 	cv::Mat V1_32f;
@@ -103,9 +103,15 @@ void getV1(cv::Mat &m, int &r, double eps, double &w, double &maxV1)
 	cv::Mat V1_g = guide_filter(V1_32f, V1_min_filter, r, eps);
 	//导向滤波以暗通道为原图像，最小值滤波之后暗通道的图像为引导
 	int bins = 1000;
-	
-	std::vector<int>  his;
-	cv::calcHist(V1_g, 1, his);        //统计直方图
+	const int channels[1] = { 0 };
+	float midRanges[] = { 0,256 };
+	int hist_sz[] = { 256 };
+	cv::MatND dstHist;
+	const float *ranges[] = { midRanges };
+	cv::imshow("v1_g", V1_g);
+	std::cout << V1_g(cv::Rect(0, 0, 3, 3)) << std::endl;
+	cv::calcHist(&V1_g,1,channels,cv::Mat(),dstHist,1,hist_sz,ranges,true,false);        //统计直方图
+	std::cout << dstHist <<std::endl;
 	
 
 }

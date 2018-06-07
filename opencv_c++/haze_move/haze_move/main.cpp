@@ -10,7 +10,7 @@ int main()
 	Mat img = imread("test.jpg");
 	imshow("test", img);
 	
-	cv::Mat res = cv::Mat::zeros(cv::Size(400, 400), CV_8UC1);
+	/*cv::Mat res = cv::Mat::zeros(cv::Size(400, 400), CV_8UC1);
 	res=min_BGR(img);
 	imshow("res", res);
 	
@@ -21,9 +21,13 @@ int main()
 	Mat img_filter;
 	min_filter(res, img_filter, 7);
 	imshow("min_filter", img_filter);
-	cout << "done!" << endl;
+	cout << "done!" << endl;*/
+	int r = 7;
+	double eps = 0.001;
+	double w = 0.95;
+	double maxV1 = 0.80;
+	getV1(img,r, eps, w, maxV1);
 	
-
 
 	waitKey(0);
 	return 0;
