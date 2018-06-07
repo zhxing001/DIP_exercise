@@ -22,7 +22,7 @@ int main()
 	min_filter(res, img_filter, 7);
 	imshow("min_filter", img_filter);
 	cout << "done!" << endl;*/
-	int r = 7;
+	int r = 81;
 	double eps = 0.001;
 	double w = 0.95;
 	double maxV1 = 0.80;

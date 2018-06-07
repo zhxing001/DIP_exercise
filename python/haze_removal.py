@@ -8,7 +8,7 @@ Created on Wed Jun  6 15:29:46 2018
 import cv2  
 import numpy as np  
 import time
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
    
 def zmMinFilterGray(src, r=7):  
     '''''最小值滤波，r是滤波器半径'''  
@@ -48,8 +48,10 @@ def guidedfilter(I, p, r, eps):
 def getV1(m, r, eps, w, maxV1):  #输入rgb图像，值范围[0,1]  
     '''''计算大气遮罩图像V1和光照值A, V1 = 1-t/A'''  
     V1 = np.min(m,2)                                         #得到暗通道图像  
-    V1 = guidedfilter(V1, zmMinFilterGray(V1,7), r, eps)     #使用引导滤波优化  
+    V1 = guidedfilter(V1, zmMinFilterGray(V1,7), r, eps)     #使用引导滤波优化 
+    print(V1)
     bins = 2000  
+    plt.imshow(V1,'gray')
     ht = np.histogram(V1, bins)                              #计算大气光照A  
     d = np.cumsum(ht[0])/float(V1.size)  
     for lmax in range(bins-1, 0, -1):  
