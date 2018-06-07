@@ -8,11 +8,12 @@ void min_filter(cv::Mat &src_img, cv::Mat &res_img, int kernel_size)
 	cv::erode(src_img, res_img, element);
 }
 
-//获取通道的最小值，好像只能自己遍历做了
+//获取通道的最小值，好像只能自己遍历做了，我是用指针做的，貌似这样最快
 cv::Mat min_BGR(cv::Mat &src_img)
 {
 	int rows = src_img.rows;
 	int cols = src_img.cols;
+	
 	cv::Mat res = cv::Mat::zeros(cv::Size(cols, rows), CV_8UC1);
 	//creat one channel image to save min_rgb
 	int channel_num = src_img.channels();
@@ -22,6 +23,7 @@ cv::Mat min_BGR(cv::Mat &src_img)
 		std::cout << "channel is just 1, return zeros matrix!" << std::endl;
 		return res;
 	}
+	
 	
 	for (int i = 0; i < rows; i++)
 	{
@@ -43,6 +45,7 @@ cv::Mat min_BGR(cv::Mat &src_img)
 cv::Mat guide_filter(cv::Mat & img, cv::Mat & p, int r, double eps)
 {
 	cv::Mat img_32f, p_32f, res;
+	if()
 	img.convertTo(img_32f, CV_32F);
 	p.convertTo(p_32f, CV_32F);
 	//都转换成32F方便后边做乘法
@@ -80,6 +83,29 @@ cv::Mat guide_filter(cv::Mat & img, cv::Mat & p, int r, double eps)
 	//计算输出
 	res = mean_a.mul(p_32f) + mean_b;
 	
-	return res;
+	return res;	
+}
+
+void getV1(cv::Mat &m, int &r, double eps, double &w, double &maxV1)
+{
+	cv::Mat V1 = min_BGR(m);    
+	cv::Mat V1_32f;
+	V1.convertTo(V1_32f, CV_32F);
+	V1_32f = V1_32f / 255.0;
+
+	cv::Mat V1_min_filter;
+	min_filter(V1, V1_min_filter, 7);
+	cv::Mat V1_min_32f;
+	V1_min_filter.convertTo(V1_min_32f, CV_32F);        
+	//因为我写的min_bgr函数是针对uint8的，所以就先做完最小值之后再去除以255
+	V1_min_32f = V1_min_32f / 255.0;
+
+	cv::Mat V1_g = guide_filter(V1_32f, V1_min_filter, r, eps);
+	//导向滤波以暗通道为原图像，最小值滤波之后暗通道的图像为引导
+	int bins = 1000;
 	
+	std::vector<int>  his;
+	cv::calcHist(V1_g, 1, his);        //统计直方图
+	
+
 }

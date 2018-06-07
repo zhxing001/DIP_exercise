@@ -1,7 +1,9 @@
-﻿  main.cpp
-cl : 命令行 warning D9028: 最小重新生成失败，正在转换为标准生成
-foge_move.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::erode(class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_OutputArray const &,class cv::debug_build_guard::_InputArray const &,class cv::Point_<int>,int,int,class cv::Scalar_<double> const &)" (?erode@cv@@YAXAEBV_InputArray@debug_build_guard@1@AEBV_OutputArray@31@0V?$Point_@H@1@HHAEBV?$Scalar_@N@1@@Z)，该符号在函数 "void __cdecl min_filter(class cv::Mat &,class cv::Mat &,int)" (?min_filter@@YAXAEAVMat@cv@@0H@Z) 中被引用
-main.obj : error LNK2019: 无法解析的外部符号 "public: class cv::Mat __cdecl cv::debug_build_guard::_InputArray::getMat_(int)const " (?getMat_@_InputArray@debug_build_guard@cv@@QEBA?AVMat@3@H@Z)，该符号在函数 "public: class cv::Mat __cdecl cv::debug_build_guard::_InputArray::getMat(int)const " (?getMat@_InputArray@debug_build_guard@cv@@QEBA?AVMat@3@H@Z) 中被引用
-main.obj : error LNK2019: 无法解析的外部符号 "public: int __cdecl cv::debug_build_guard::_InputArray::kind(void)const " (?kind@_InputArray@debug_build_guard@cv@@QEBAHXZ)，该符号在函数 "public: class cv::Mat __cdecl cv::debug_build_guard::_InputArray::getMat(int)const " (?getMat@_InputArray@debug_build_guard@cv@@QEBA?AVMat@3@H@Z) 中被引用
-main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::imshow(class cv::String const &,class cv::debug_build_guard::_InputArray const &)" (?imshow@cv@@YAXAEBVString@1@AEBV_InputArray@debug_build_guard@1@@Z)，该符号在函数 main 中被引用
-C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\haze_move\x64\Debug\haze_move.exe : fatal error LNK1120: 4 个无法解析的外部命令
+﻿生成启动时间为 2018/6/7 8:58:18。
+     1>项目“C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\haze_move\haze_move.vcxproj”在节点 2 上(Build 个目标)。
+     1>Link:
+         haze_move.vcxproj -> C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Debug\haze_move.exe
+     1>已完成生成项目“C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\haze_move\haze_move.vcxproj”(Build 个目标)的操作。
+
+已成功生成。
+
+已用时间 00:00:00.09

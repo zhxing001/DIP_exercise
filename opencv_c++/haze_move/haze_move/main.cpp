@@ -13,7 +13,6 @@ int main()
 	cv::Mat res = cv::Mat::zeros(cv::Size(400, 400), CV_8UC1);
 	res=min_BGR(img);
 	imshow("res", res);
-
 	
 	
 	cout << format( img(Rect(0, 0, 3, 3)), cv::Formatter::FMT_MATLAB) << endl;

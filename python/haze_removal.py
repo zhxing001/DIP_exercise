@@ -8,7 +8,7 @@ Created on Wed Jun  6 15:29:46 2018
 import cv2  
 import numpy as np  
 import time
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
    
 def zmMinFilterGray(src, r=7):  
     '''''最小值滤波，r是滤波器半径'''  
@@ -72,7 +72,7 @@ def deHaze(m, r=81, eps=0.001, w=0.95, maxV1=0.80, bGamma=False):
     return Y  
    
 if __name__ == '__main__':  
-    img=cv2.imread('C:\\Users\\zhxing\\Desktop\\_DSC7702.JPG')/255.0
+    img=cv2.imread('test.jpg')/255.0
     start=time.time()
     m = deHaze(img)
     end=time.time()
