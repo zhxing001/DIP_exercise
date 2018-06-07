@@ -49,10 +49,12 @@ def getV1(m, r, eps, w, maxV1):  #输入rgb图像，值范围[0,1]
     '''''计算大气遮罩图像V1和光照值A, V1 = 1-t/A'''  
     V1 = np.min(m,2)                                         #得到暗通道图像  
     V1 = guidedfilter(V1, zmMinFilterGray(V1,7), r, eps)     #使用引导滤波优化 
-    print(V1)
+    
     bins = 2000  
-    plt.imshow(V1,'gray')
-    ht = np.histogram(V1, bins)                              #计算大气光照A  
+    
+    ht = np.histogram(V1, bins)  
+    print(ht[0])
+                            #计算大气光照A  
     d = np.cumsum(ht[0])/float(V1.size)  
     for lmax in range(bins-1, 0, -1):  
         if d[lmax]<=0.999:  
