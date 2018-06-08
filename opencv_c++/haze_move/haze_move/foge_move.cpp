@@ -108,12 +108,11 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1)
 	const int channels[1] = { 0 };
 	float midRanges[] = { 0,1 };
 	int hist_sz[] = { bins };
-	cv::Mat dstHist;
+	cv::MatND dstHist;
 	const float *ranges[] = { midRanges };
 	cv::imshow("导向滤波结果", V1_g);
 	/*std::cout << V1_g(cv::Rect(0, 0, 3, 3)) << std::endl;*/
 	cv::calcHist(&V1_g,1,channels,cv::Mat(),dstHist,1,hist_sz,ranges,true,false);        //统计直方图
-	
 
 }
 
