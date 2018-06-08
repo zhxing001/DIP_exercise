@@ -50,26 +50,21 @@ def getV1(m, r, eps, w, maxV1):  #输入rgb图像，值范围[0,1]
     V1 = np.min(m,2)                                         #得到暗通道图像  
     V1 = guidedfilter(V1, zmMinFilterGray(V1,7), r, eps)     #使用引导滤波优化 
     
-    bins = 2000  
+    bins = 1000  
     
     ht = np.histogram(V1, bins)  
-    print(ht[0])
+   
                             #计算大气光照A  
     d = np.cumsum(ht[0])/float(V1.size)  
-    print(d)
+   
     for lmax in range(bins-1, 0, -1):  
         if d[lmax]<=0.999:  
             break  
-    
-    print(ht[1][lmax])
-   
-    plt.imshow(np.mean(m,2)[V1>=ht[1][lmax]],'gray')
-    A  = np.mean(m,2)[V1>=ht[1][lmax]].max()  
-    
-           
-    V1 = np.minimum(V1*w, maxV1)                   #对值范围进行限制  
-   
-    
+
+    A  = np.mean(m,2)[V1>=ht[1][lmax]].max()         
+    V1 = np.minimum(V1*w, maxV1)                   #对值范围进行限制,opencv中用阈值化做就可以了 
+    #plt.imshow(V1,'gray')
+    print(A)
     return V1,A  
    
 def deHaze(m, r=81, eps=0.001, w=0.95, maxV1=0.80, bGamma=False):  

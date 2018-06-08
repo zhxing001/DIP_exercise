@@ -88,6 +88,7 @@ cv::Mat guide_filter(cv::Mat &img, cv::Mat p, int r, double eps)
 	return res;	
 }
 
+//getV1和A，其中m是Uint8类型，转换函数里面做
 void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat &V1_)
 {
 	cv::Mat m_32f;
@@ -115,7 +116,7 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat 
 	/*std::cout << max << "  " << min << std::endl;*/
 
 
-	int bins = 1000;
+	int bins = 2000;
 	const int channels[1] = { 0 };
 	float midRanges[] = { 0,max };
 	int hist_sz[] = { bins };
@@ -125,7 +126,7 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat 
 	
 	cv::calcHist(&V1_g,1,channels,cv::Mat(),dstHist,1,hist_sz,ranges,true,false);        //统计直方图
 	
-<<<<<<< HEAD
+
 	//std::cout << dstHist;
 	cv::Mat sum_hist;
 	cv::integral(dstHist, sum_hist,CV_32F);      //计算其积分图
@@ -145,8 +146,7 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat 
 	//利用阈值化来获取掩膜去求V1符合条件的值
 	cv::Mat mask_up_value_0999;
 	cv::threshold(V1_g, mask_up_value_0999, value_0999,1,CV_THRESH_BINARY);
-=======
->>>>>>> 1092c51b518d71eeb1432a43cfe6005158d79d5a
+
 
 	//计算三个通道的均值
 	std::vector<cv::Mat> bgr;
@@ -159,9 +159,45 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat 
 	cv::minMaxLoc(A_, NULL, &A, NULL, NULL);
 	//这个测试通过了，和python算出的最大值是完全一样的
 	
+	cv::threshold(V1_g, V1_, maxV1, NULL,CV_THRESH_TRUNC);
 }
 
 
+cv::Mat deHaze(cv::Mat &img,double r , double eps , double w , double maxV1 , bool Gamma )
+{
+	cv::Mat V1,img_32f;
+	double A;
+	getV1(img, r, eps, w, maxV1, A, V1);
+	cv::imshow("V1", V1);
+	std::cout << A << std::endl;
+
+	img.convertTo(img_32f, CV_32F);
+	img_32f = img_32f / 255.0;
+
+
+	//三个通道分离分别计算
+	std::vector<cv::Mat>  img_bgr;
+	cv::split(img_32f, img_bgr);     
+	cv::Mat Yb = (img_bgr[0] - V1) / (1 - V1 / A);
+	cv::Mat Yg = (img_bgr[1] - V1) / (1 - V1 / A);
+	cv::Mat Yr = (img_bgr[2] - V1) / (1 - V1 / A);
+	
+	//三个通道合并
+	img_bgr.clear();
+	img_bgr.push_back(Yb);
+	img_bgr.push_back(Yg);
+	img_bgr.push_back(Yr);
+	cv::Mat Y;
+	cv::merge(img_bgr, Y);
+	cv::threshold(Y, Y, 1, 1, CV_THRESH_BINARY);   //大于1 的全部置1
+	cv::threshold(Y, Y, 0, 0, CV_THRESH_TOZERO);
+	Y = Y*255.0;
+	cv::Mat Y_;
+	Y.convertTo(Y_, CV_8U);
+	return Y_;
+
+
+}
 
 cv::Mat fastGuidedFilter(cv::Mat I_org, cv::Mat p_org, int r, double eps, int s)
 {
