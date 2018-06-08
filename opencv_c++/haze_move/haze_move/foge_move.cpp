@@ -88,8 +88,12 @@ cv::Mat guide_filter(cv::Mat &img, cv::Mat p, int r, double eps)
 	return res;	
 }
 
-void getV1(cv::Mat &m,int r, double eps,double w,double maxV1)
+void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat &V1_)
 {
+	cv::Mat m_32f;
+	m.convertTo(m_32f, CV_32F);
+	m_32f = m_32f / 255.0;
+
 	cv::Mat V1 = min_BGR(m);    
 	cv::Mat V1_32f;
 	V1.convertTo(V1_32f, CV_32F);
@@ -104,16 +108,57 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1)
 
 	cv::Mat V1_g = guide_filter(V1_32f, V1_min_32f, r, eps);
 	//导向滤波以暗通道为原图像，最小值滤波之后暗通道的图像为引导
+	cv::imshow("导向滤波结果", V1_g);
+	std::cout << V1_g(cv::Rect(0, 0, 3, 3)) << std::endl;
+	double max, min;
+	cv::minMaxLoc(V1_g, &min, &max, NULL, NULL);
+	/*std::cout << max << "  " << min << std::endl;*/
+
+
 	int bins = 1000;
 	const int channels[1] = { 0 };
-	float midRanges[] = { 0,1 };
+	float midRanges[] = { 0,max };
 	int hist_sz[] = { bins };
-	cv::MatND dstHist;
+	cv::Mat dstHist;
 	const float *ranges[] = { midRanges };
-	cv::imshow("导向滤波结果", V1_g);
-	/*std::cout << V1_g(cv::Rect(0, 0, 3, 3)) << std::endl;*/
+	
+	
 	cv::calcHist(&V1_g,1,channels,cv::Mat(),dstHist,1,hist_sz,ranges,true,false);        //统计直方图
+	
+<<<<<<< HEAD
+	//std::cout << dstHist;
+	cv::Mat sum_hist;
+	cv::integral(dstHist, sum_hist,CV_32F);      //计算其积分图
+	cv::Mat sum_hist2 = sum_hist(cv::Rect(1, 1, 1, 1000))/ V1_g.total();      //把第二列取出来
+	
+	//std::cout << sum_hist2;
 
+	//存入vector来查找
+	std::vector<float> vd;
+	vd.assign((float*)sum_hist2.datastart, (float*)sum_hist2.dataend);
+	auto it_=std::upper_bound(vd.begin(), vd.end(),0.999);
+
+	double value_0999 = (max - min) / bins*(it_ - vd.begin());   
+	//value_0999就是说小于value_0999的像素占了总数的99.9%
+	std::cout << value_0999;
+
+	//利用阈值化来获取掩膜去求V1符合条件的值
+	cv::Mat mask_up_value_0999;
+	cv::threshold(V1_g, mask_up_value_0999, value_0999,1,CV_THRESH_BINARY);
+=======
+>>>>>>> 1092c51b518d71eeb1432a43cfe6005158d79d5a
+
+	//计算三个通道的均值
+	std::vector<cv::Mat> bgr;
+	cv::split(m_32f, bgr);
+	cv::Mat bgr_mean = (bgr[0] + bgr[1] + bgr[2]) / 3;
+
+	//均值掩膜
+	cv::Mat A_ = bgr_mean.mul(mask_up_value_0999);
+	
+	cv::minMaxLoc(A_, NULL, &A, NULL, NULL);
+	//这个测试通过了，和python算出的最大值是完全一样的
+	
 }
 
 

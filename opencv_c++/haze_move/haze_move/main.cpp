@@ -10,6 +10,10 @@ int main()
 	Mat img = imread("test.jpg");
 	imshow("test", img);
 	
+	
+	/*double max;
+	cv::minMaxLoc(img, NULL, &max, NULL, NULL);
+	std::cout << max << endl;*/
 	/*cv::Mat res = cv::Mat::zeros(cv::Size(400, 400), CV_8UC1);
 	res=min_BGR(img);
 	imshow("res", res);
@@ -26,7 +30,9 @@ int main()
 	double eps = 0.001;
 	double w = 0.95;
 	double maxV1 = 0.80;
-	getV1(img,r, eps, w, maxV1);
+	double A;
+	cv::Mat V1;
+	getV1(img,r, eps, w, maxV1,A,V1);
 	
 
 	waitKey(0);
