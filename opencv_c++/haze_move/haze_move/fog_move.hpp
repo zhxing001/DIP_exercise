@@ -23,4 +23,4 @@ cv::Mat fastGuidedFilter(cv::Mat I_org, cv::Mat p_org, int r, double eps, int s)
 void getV1(cv::Mat &m, int r, double eps, double w, double maxV1, double &A, cv::Mat &V1_);
 
 //最终的去雾函数，输入原始图像，返回去雾之后的图像
-cv::Mat deHaze(cv::Mat &img, double r = 81, double eps = 0.001, double w = 0.95, double maxV1 = 0.80, bool Gamma = false);
+cv::Mat deHaze(cv::Mat &img, bool Gamma = true, double r = 81, double eps = 0.001, double w = 0.95, double maxV1 = 0.80);

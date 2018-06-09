@@ -165,7 +165,7 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat 
 }
 
 
-cv::Mat deHaze(cv::Mat &img,double r , double eps , double w , double maxV1 , bool Gamma )
+cv::Mat deHaze(cv::Mat &img, bool Gamma ,double r , double eps , double w , double maxV1 )
 {
 	cv::Mat V1,img_32f;
 	double A;
@@ -196,11 +196,21 @@ cv::Mat deHaze(cv::Mat &img,double r , double eps , double w , double maxV1 , bo
 	//std::cout << Y(cv::Rect(0, 0, 4, 4)) << std::endl;
 
 	//这个截断是可以不要的，因为后期要转换为8UC
-	//cv::threshold(Y, Y, 1, 1, CV_THRESH_TRUNC);   //大于1 的全部置1
-	//cv::threshold(Y, Y, 0, 1, CV_THRESH_TOZERO);
-	Y = Y*255.0;
+	cv::threshold(Y, Y, 1, 1, CV_THRESH_TRUNC);   //大于1 的全部置1
+	cv::threshold(Y, Y, 0, 0, CV_THRESH_TOZERO);  //小于0的置零，要不转换成UC3的时候就会变成255，有彩色块
+	
 	//std::cout << Y(cv::Rect(0, 0, 4, 4)) << std::endl;
 	cv::Mat Y_;
+
+	if (Gamma)
+	{
+		cv::Scalar mean=cv::mean(Y);
+		//std::cout << mean.val[0];
+		double pow = log(0.5) / log((mean.val[0] + mean.val[1] + mean.val[2])/3);
+		cv::pow(Y, pow, Y);
+	}
+	Y = Y*255.0;
+
 	Y.convertTo(Y_, CV_8UC3);
 	return Y_;
 
