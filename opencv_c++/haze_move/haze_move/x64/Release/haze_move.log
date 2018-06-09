@@ -1,12 +1,8 @@
-﻿  foge_move.cpp
-foge_move.cpp(121): warning C4838: 从“double”转换到“float”需要收缩转换
-foge_move.cpp(121): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
-foge_move.cpp(133): warning C4244: “参数”: 从“std::size_t”转换到“double”，可能丢失数据
-foge_move.cpp(172): warning C4244: “参数”: 从“double”转换到“int”，可能丢失数据
+﻿  main.cpp
   正在生成代码
-  15 of 206 functions ( 7.3%) were compiled, the rest were copied from previous compilation.
+  11 of 206 functions ( 5.3%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    3 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   haze_move.vcxproj -> C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\haze_move\x64\Release\haze_move.exe
   haze_move.vcxproj -> C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\haze_move\x64\Release\haze_move.pdb (Full PDB)

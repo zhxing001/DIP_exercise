@@ -33,8 +33,10 @@ int main()
 	double A;
 	cv::Mat V1;*/
 	
-
+	double start = static_cast<double>(getTickCount());
 	cv::Mat x = deHaze(img);
+	double time_cost = ((double)getTickCount() - start) / getTickFrequency();
+	cout << "TIME_COST--" << time_cost << endl;
 	imshow("ИҐОн", x);
 
 	waitKey(0);
