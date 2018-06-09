@@ -72,6 +72,7 @@ def deHaze(m, r=81, eps=0.001, w=0.95, maxV1=0.80, bGamma=False):
     V1,A = getV1(m, r, eps, w, maxV1)               #得到遮罩图像和大气光照  
     for k in range(3):  
         Y[:,:,k] = (m[:,:,k]-V1)/(1-V1/A)           #颜色校正  
+    
     Y =  np.clip(Y, 0, 1)  
     if bGamma:  
         Y = Y**(np.log(0.5)/np.log(Y.mean()))       #gamma校正,默认不进行该操作  

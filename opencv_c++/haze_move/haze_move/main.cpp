@@ -8,7 +8,7 @@ using namespace cv;
 int main()
 {
 	Mat img = imread("test.jpg");
-	imshow("test", img);
+	imshow("Ô­Í¼", img);
 	
 	
 	/*double max;
@@ -26,17 +26,16 @@ int main()
 	min_filter(res, img_filter, 7);
 	imshow("min_filter", img_filter);
 	cout << "done!" << endl;*/
-	//int r = 81;
-	//double eps = 0.001;
-	//double w = 0.95;
-	//double maxV1 = 0.80;
-	//double A;
+	/*int r = 81;
+	double eps = 0.001;
+	double w = 0.95;
+	double maxV1 = 0.80;
+	double A;
+	cv::Mat V1;*/
 	
-	/*getV1(img,r, eps, w, maxV1,A,V1);
-	imshow("V1", V1);*/
 
 	cv::Mat x = deHaze(img);
-	imshow("x", x);
+	imshow("È¥Îí", x);
 
 	waitKey(0);
 	return 0;

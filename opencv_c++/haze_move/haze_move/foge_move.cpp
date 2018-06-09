@@ -18,7 +18,7 @@ cv::Mat min_BGR(cv::Mat &src_img)
 	cv::Mat res = cv::Mat::zeros(cv::Size(cols, rows), CV_8UC1);
 	//creat one channel image to save min_rgb
 	int channel_num = src_img.channels();
-	std::cout << channel_num << std::endl;
+	/*std::cout << channel_num << std::endl;*/
 	if (channel_num <= 1)
 	{
 		std::cout << "channel is just 1, return zeros matrix!" << std::endl;
@@ -36,7 +36,7 @@ cv::Mat min_BGR(cv::Mat &src_img)
 		}
 		
 	}
-	std::cout << "done!"<<std::endl;
+	//std::cout << "done!"<<std::endl;
 	return res;
 
 }
@@ -107,16 +107,16 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat 
 	//因为我写的min_bgr函数是针对uint8的，所以就先做完最小值之后再去除以255
 	V1_min_32f = V1_min_32f / 255.0;
 
-	cv::Mat V1_g = guide_filter(V1_32f, V1_min_32f, r, eps);
+	cv::Mat V1_g = fastGuidedFilter(V1_32f, V1_min_32f, r, eps,2);
 	//导向滤波以暗通道为原图像，最小值滤波之后暗通道的图像为引导
-	cv::imshow("导向滤波结果", V1_g);
-	std::cout << V1_g(cv::Rect(0, 0, 3, 3)) << std::endl;
+	//cv::imshow("导向滤波结果", V1_g);
+	//std::cout << V1_g(cv::Rect(0, 0, 3, 3)) << std::endl;
 	double max, min;
 	cv::minMaxLoc(V1_g, &min, &max, NULL, NULL);
 	/*std::cout << max << "  " << min << std::endl;*/
 
 
-	int bins = 2000;
+	int bins = 1000;
 	const int channels[1] = { 0 };
 	float midRanges[] = { 0,max };
 	int hist_sz[] = { bins };
@@ -141,7 +141,7 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat 
 
 	double value_0999 = (max - min) / bins*(it_ - vd.begin());   
 	//value_0999就是说小于value_0999的像素占了总数的99.9%
-	std::cout << value_0999;
+	
 
 	//利用阈值化来获取掩膜去求V1符合条件的值
 	cv::Mat mask_up_value_0999;
@@ -151,15 +151,17 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat 
 	//计算三个通道的均值
 	std::vector<cv::Mat> bgr;
 	cv::split(m_32f, bgr);
-	cv::Mat bgr_mean = (bgr[0] + bgr[1] + bgr[2]) / 3;
+	cv::Mat bgr_mean = (bgr[0] + bgr[1] + bgr[2]) / 3.0;
 
 	//均值掩膜
 	cv::Mat A_ = bgr_mean.mul(mask_up_value_0999);
-	
+	//cv::imshow("A", A_);
 	cv::minMaxLoc(A_, NULL, &A, NULL, NULL);
+	//std::cout <<"A--" << A << std::endl;
 	//这个测试通过了，和python算出的最大值是完全一样的
 	
 	cv::threshold(V1_g, V1_, maxV1, NULL,CV_THRESH_TRUNC);
+	
 }
 
 
@@ -168,8 +170,8 @@ cv::Mat deHaze(cv::Mat &img,double r , double eps , double w , double maxV1 , bo
 	cv::Mat V1,img_32f;
 	double A;
 	getV1(img, r, eps, w, maxV1, A, V1);
-	cv::imshow("V1", V1);
-	std::cout << A << std::endl;
+	//cv::imshow("V1", V1);
+	//std::cout << A << std::endl;
 
 	img.convertTo(img_32f, CV_32F);
 	img_32f = img_32f / 255.0;
@@ -177,7 +179,8 @@ cv::Mat deHaze(cv::Mat &img,double r , double eps , double w , double maxV1 , bo
 
 	//三个通道分离分别计算
 	std::vector<cv::Mat>  img_bgr;
-	cv::split(img_32f, img_bgr);     
+	cv::split(img_32f, img_bgr);    
+
 	cv::Mat Yb = (img_bgr[0] - V1) / (1 - V1 / A);
 	cv::Mat Yg = (img_bgr[1] - V1) / (1 - V1 / A);
 	cv::Mat Yr = (img_bgr[2] - V1) / (1 - V1 / A);
@@ -187,13 +190,18 @@ cv::Mat deHaze(cv::Mat &img,double r , double eps , double w , double maxV1 , bo
 	img_bgr.push_back(Yb);
 	img_bgr.push_back(Yg);
 	img_bgr.push_back(Yr);
+	
 	cv::Mat Y;
 	cv::merge(img_bgr, Y);
-	cv::threshold(Y, Y, 1, 1, CV_THRESH_BINARY);   //大于1 的全部置1
-	cv::threshold(Y, Y, 0, 0, CV_THRESH_TOZERO);
+	//std::cout << Y(cv::Rect(0, 0, 4, 4)) << std::endl;
+
+	//这个截断是可以不要的，因为后期要转换为8UC
+	//cv::threshold(Y, Y, 1, 1, CV_THRESH_TRUNC);   //大于1 的全部置1
+	//cv::threshold(Y, Y, 0, 1, CV_THRESH_TOZERO);
 	Y = Y*255.0;
+	//std::cout << Y(cv::Rect(0, 0, 4, 4)) << std::endl;
 	cv::Mat Y_;
-	Y.convertTo(Y_, CV_8U);
+	Y.convertTo(Y_, CV_8UC3);
 	return Y_;
 
 
