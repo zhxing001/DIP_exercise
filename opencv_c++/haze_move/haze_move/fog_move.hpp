@@ -19,8 +19,8 @@ cv::Mat guide_filter(cv::Mat &img, cv::Mat p, int r, double eps);
 cv::Mat GuidedFilter(cv::Mat I, cv::Mat p, int r, double eps);
 cv::Mat fastGuidedFilter(cv::Mat I_org, cv::Mat p_org, int r, double eps, int s);
 
-//计算大气遮罩图像V1和光照值
-void getV1(cv::Mat &m, int r, double eps, double w, double maxV1, double &A, cv::Mat &V1_);
+//计算大气遮罩图像V1和光照值A及A的位置。
+void getV1(cv::Mat &m, int r, double eps, double w, double maxV1,double &A,cv::Point &A_loc, cv::Mat &V1_);
 
 //最终的去雾函数，输入原始图像，返回去雾之后的图像
-cv::Mat deHaze(cv::Mat &img, bool Gamma = true, double r = 81, double eps = 0.001, double w = 0.95, double maxV1 = 0.80);
+cv::Mat deHaze(cv::Mat &img, bool Gamma = false, double r = 81, double eps = 0.001, double w = 0.95, double maxV1 = 0.80);

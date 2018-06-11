@@ -7,6 +7,7 @@ void min_filter(cv::Mat &src_img, cv::Mat &res_img, int kernel_size)
 {
 	cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(2*kernel_size-1, 2*kernel_size-1));
 	cv::erode(src_img, res_img, element);
+	cv::imshow("dark_channel", res_img);
 }
 
 //获取通道的最小值，好像只能自己遍历做了，我是用指针做的，貌似这样最快
@@ -57,7 +58,7 @@ cv::Mat guide_filter(cv::Mat &img, cv::Mat p, int r, double eps)
 
 	int height = img.rows;
 	int width = img.cols;
-	cv::Size kernel_sz(2*r-1, 2*r-1);
+	cv::Size kernel_sz(2*r+1, 2*r+1);
 
 	//计算四个均值滤波，
 	cv::Mat m_Img, m_p, m_Ip, m_i2;    
@@ -89,13 +90,14 @@ cv::Mat guide_filter(cv::Mat &img, cv::Mat p, int r, double eps)
 }
 
 //getV1和A，其中m是Uint8类型，转换函数里面做
-void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat &V1_)
+void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Point &A_loc,cv::Mat &V1_)
 {
 	cv::Mat m_32f;
 	m.convertTo(m_32f, CV_32F);
 	m_32f = m_32f / 255.0;
 
-	cv::Mat V1 = min_BGR(m);    
+	cv::Mat V1 = min_BGR(m);  
+	//cv::cvtColor(m, V1, CV_BGR2GRAY);
 	cv::Mat V1_32f;
 	V1.convertTo(V1_32f, CV_32F);
 	V1_32f = V1_32f / 255.0;
@@ -109,7 +111,7 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat 
 
 	cv::Mat V1_g = fastGuidedFilter(V1_32f, V1_min_32f, r, eps,2);
 	//导向滤波以暗通道为原图像，最小值滤波之后暗通道的图像为引导
-	//cv::imshow("导向滤波结果", V1_g);
+	cv::imshow("导向滤波结果", V1_g);
 	//std::cout << V1_g(cv::Rect(0, 0, 3, 3)) << std::endl;
 	double max, min;
 	cv::minMaxLoc(V1_g, &min, &max, NULL, NULL);
@@ -122,7 +124,6 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat 
 	int hist_sz[] = { bins };
 	cv::Mat dstHist;
 	const float *ranges[] = { midRanges };
-	
 	
 	cv::calcHist(&V1_g,1,channels,cv::Mat(),dstHist,1,hist_sz,ranges,true,false);        //统计直方图
 	
@@ -140,8 +141,9 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat 
 	auto it_=std::upper_bound(vd.begin(), vd.end(),0.999);
 
 	double value_0999 = (max - min) / bins*(it_ - vd.begin());   
-	//value_0999就是说小于value_0999的像素占了总数的99.9%
-	
+	//value_0999就是说小于value_0999的像素占了总数的99.9%,也就是找到最大的0.1%的像素的最小值
+    //找到这个之后去阈值化图像，就找到了候选大气光A值得候选位置，然后把这个二值化图像作为掩膜
+    //去和导向滤波结果相乘，然后再找到最大值得位置去作为A值。
 
 	//利用阈值化来获取掩膜去求V1符合条件的值
 	cv::Mat mask_up_value_0999;
@@ -156,7 +158,7 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat 
 	//均值掩膜
 	cv::Mat A_ = bgr_mean.mul(mask_up_value_0999);
 	//cv::imshow("A", A_);
-	cv::minMaxLoc(A_, NULL, &A, NULL, NULL);
+	cv::minMaxLoc(A_, NULL, &A, NULL,&A_loc);
 	//std::cout <<"A--" << A << std::endl;
 	//这个测试通过了，和python算出的最大值是完全一样的
 	
@@ -168,8 +170,13 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Mat 
 cv::Mat deHaze(cv::Mat &img, bool Gamma ,double r , double eps , double w , double maxV1 )
 {
 	cv::Mat V1,img_32f;
+	cv::Point A_loc;
+	cv::Vec3b A_3;
 	double A;
-	getV1(img, r, eps, w, maxV1, A, V1);
+
+	
+	getV1(img, r, eps, w, maxV1,A,A_loc, V1);
+	A_3 = img.at<cv::Vec3b>(A_loc);
 	//cv::imshow("V1", V1);
 	//std::cout << A << std::endl;
 
@@ -180,6 +187,12 @@ cv::Mat deHaze(cv::Mat &img, bool Gamma ,double r , double eps , double w , doub
 	//三个通道分离分别计算
 	std::vector<cv::Mat>  img_bgr;
 	cv::split(img_32f, img_bgr);    
+
+	/*cv::Mat Yb = (img_bgr[0] - V1) / (1 - V1 / A_3.val[0]);
+	cv::Mat Yg = (img_bgr[1] - V1) / (1 - V1 / A_3.val[1]);
+	cv::Mat Yr = (img_bgr[2] - V1) / (1 - V1 / A_3.val[2]);*/
+
+	//A是三通道的值的话图像要暗得多
 
 	cv::Mat Yb = (img_bgr[0] - V1) / (1 - V1 / A);
 	cv::Mat Yg = (img_bgr[1] - V1) / (1 - V1 / A);

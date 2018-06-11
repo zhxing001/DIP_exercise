@@ -10,7 +10,7 @@ int main()
 	Mat img1= imread("test.jpg");
 	imshow("原图", img1);
 	
-	cout << log(10);
+	//cout << log(10);
 	/*double max;
 	cv::minMaxLoc(img, NULL, &max, NULL, NULL);
 	std::cout << max << endl;*/
@@ -32,28 +32,33 @@ int main()
 	double maxV1 = 0.80;
 	double A;
 	cv::Mat V1;*/
+
+
 	double start, time_cost;
 
-	cv::VideoCapture Video("C:\\Users\\zhxing\\Desktop\\张星\\张星\\去雾\\3_low.avi");
-	unsigned video_num = Video.get(CV_CAP_PROP_FRAME_COUNT);
+	//cv::VideoCapture Video("C:\\Users\\zhxing\\Desktop\\张星\\张星\\去雾\\3_low.avi");
+	//unsigned video_num = Video.get(CV_CAP_PROP_FRAME_COUNT);
 
-	Mat img;
-	Mat img_remove_fog;
-	for (unsigned frame = 0; frame < video_num; frame++)
-	{
-		Video.read(img);
-		start = static_cast<double>(getTickCount());
-		img_remove_fog = deHaze(img,49);
-		time_cost = ((double)getTickCount() - start) / getTickFrequency();
-		cout << "Time_cost:\t" << time_cost << endl;
-		imshow("source_img", img);
-		imshow("fog_remove", img_remove_fog);
-		waitKey(10);
-	}
+	//Mat img;
+	//Mat img_remove_fog;
+	//for (unsigned frame = 0; frame < video_num; frame++)
+	//{
+	//	Video.read(img);
+	//	start = static_cast<double>(getTickCount());
+	//	img_remove_fog = deHaze(img,49);
+	//	time_cost = ((double)getTickCount() - start) / getTickFrequency();
+	//	cout << "Time_cost:\t" << time_cost << endl;
+	//	imshow("source_img", img);
+	//	imshow("fog_remove", img_remove_fog);
+	//	waitKey(10);
+	//}
+
 
 	//double start = static_cast<double>(getTickCount());
+	start = static_cast<double>(getTickCount());
 	cv::Mat x = deHaze(img1);
-	
+	time_cost = ((double)getTickCount() - start) / getTickFrequency();
+	cout << "Time_cost:\t" << time_cost << endl;
 	
 	imshow("去雾", x);
 
