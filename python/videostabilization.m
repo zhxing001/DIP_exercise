@@ -1,5 +1,5 @@
 % Input video file which needs to be stabilized.
-filename = '6_left.avi';
+filename = 'C:\Users\zhxing\OneDrive\文档\2018\6_left.avi';
 
 hVideoSource = vision.VideoFileReader(filename, ...
                                       'ImageColorSpace', 'Intensity',...
@@ -19,9 +19,11 @@ hVideoOut.Position(2) = round(1.5*(hVideoOut.Position(2)));
 hVideoOut.Position(3:4) = [650 350];
 
 
-pos.template_orig = [85 295]; % [x y] upper left corner
+pos.template_orig = [85 295];   % [x y] upper left corner
 pos.template_size = [80 60];   % [width height]
 pos.search_border = [15 10];   % max horizontal and vertical displacement
+%初始化初始匹配模板以及
+
 pos.template_center = floor((pos.template_size-1)/2);
 pos.template_center_pos = (pos.template_orig + pos.template_center - 1);
 fileInfo = info(hVideoSource);
