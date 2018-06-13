@@ -61,7 +61,7 @@ while ~isDone(hVideoSource)
     [Offset, SearchRegion] = updatesearch(sz, MotionVector, ...
         SearchRegion, Offset, pos);
 
-    % Translate video frame to offset the camera motion
+    % Translate video frame to offset the camera motion，移动视频帧以消除相机抖动
     Stabilized = step(hTranslate, input, fliplr(Offset));
 
     Target = Stabilized(TargetRowIndices, TargetColIndices);
