@@ -103,7 +103,7 @@ if __name__ == '__main__':
     end=time.time()
     print('time_cost:\t'+str(end-start))    
     m=m*255.0
-    plt.imshow(m,'BRG')
+   # plt.imshow(m,'BRG')
 # # =============================================================================
 # #     m=np.uint8(m)
 # #     plt.imshow(m,'gray')
