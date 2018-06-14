@@ -1,6 +1,9 @@
-﻿x64\Release\template_match.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
-  正在生成代码
-  All 331 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  已完成代码的生成
-  videostabilization.vcxproj -> C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\haze_move\x64\Release\videostabilization.exe
-  videostabilization.vcxproj -> C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\haze_move\x64\Release\videostabilization.pdb (Full PDB)
+﻿生成启动时间为 2018/6/14 10:00:02。
+     1>项目“C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\videostabilization\videostabilization.vcxproj”在节点 2 上(Build 个目标)。
+     1>Link:
+         videostabilization.vcxproj -> C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Release\videostabilization.exe
+     1>已完成生成项目“C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\videostabilization\videostabilization.vcxproj”(Build 个目标)的操作。
+
+已成功生成。
+
+已用时间 00:00:00.33
