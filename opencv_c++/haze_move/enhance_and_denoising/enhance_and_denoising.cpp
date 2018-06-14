@@ -7,6 +7,7 @@ void enhance1(cv::Mat src_img, cv::Mat &out_img, double Gphi, double Iphi)
 {
 	cv::Scalar mean;
 	mean=cv::mean(src_img);
+	
 	double d_mean = mean.val[0];
 	cv::Mat src_img_32f;
 	src_img.convertTo(src_img_32f, CV_32F);
@@ -14,9 +15,14 @@ void enhance1(cv::Mat src_img, cv::Mat &out_img, double Gphi, double Iphi)
 
 }
 
-//增强，灰度图
-void enhance(cv::Mat src_img, cv::Mat &out_img, double compress)
+//增强，灰度图,这个是自适应的，效果不错
+void enhance(cv::Mat src, cv::Mat &out_img, double compress)
 {
+	cv::Mat src_img;
+	if (src.channels() < 2) cv::cvtColor(src, src_img, CV_BayerRG2GRAY);
+	else   src_img = src;
+	
+	
 	double max,min;
 	cv::minMaxLoc(src_img, &min, &max, NULL, NULL);
 
@@ -38,13 +44,14 @@ void enhance(cv::Mat src_img, cv::Mat &out_img, double compress)
 	auto it_up = std::upper_bound(vd.begin(), vd.end(), 1-compress);        //最大的%5的边界
 	auto it_down = std::lower_bound(vd.begin(), vd.end(), compress);        //最小的%5的边界
 	
-	std::cout << "max--" << max << "  min--" << min << std::endl;
+	/*std::cout << "max--" << max << "  min--" << min << std::endl;
 	std::cout << "it--" << it_up - vd.begin() << std::endl;
-	std::cout << "it--" << it_down - vd.begin() << std::endl;
+	std::cout << "it--" << it_down - vd.begin() << std::endl;*/
+
 	double value_up = (max - min) / bins*(it_up - vd.begin());
 	double value_down = (max - min) / bins*(it_down - vd.begin());
 
-	std::cout << value_up << "  " << value_down;
+	//std::cout << value_up << "  " << value_down;
 
 	//利用阈值两端截断
 	cv::threshold(src_img, src_img, value_up, 255, CV_THRESH_TRUNC);
@@ -52,4 +59,19 @@ void enhance(cv::Mat src_img, cv::Mat &out_img, double compress)
 
 	//灰度拉伸
 	out_img = (src_img - value_down) / (value_up - value_down) * 255;
+}
+
+//去燥，先中值去掉椒盐，再用均值除去一些高频
+void denoise(cv::Mat src, cv::Mat &out_img)
+{
+	cv::medianBlur(src, src, 3);
+	//cv::GaussianBlur(src, src, cv::Size(3,3), 0);
+	cv::Mat kernel = (cv::Mat_<double>(3, 3) << -1, -1, -1, -1, 8, -1, -1, -1, -1);
+	cv::Mat out_img_;
+	cv::filter2D(src, out_img_, src.depth(), kernel);
+	
+	out_img_ = src + 0.1*out_img_;
+
+	out_img_.convertTo(out_img, CV_8U);
+	
 }

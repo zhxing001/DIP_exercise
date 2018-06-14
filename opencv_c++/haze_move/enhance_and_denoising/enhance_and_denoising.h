@@ -18,9 +18,10 @@
 
 #include<opencv2\core\core.hpp>
 #include<opencv2\imgproc\imgproc.hpp>
+#include<highgui\highgui.hpp>
 #include<iostream>   //主要是调试用
 
-void enhance(cv::Mat src_img, cv::Mat &out_img, double compress);
+void enhance(cv::Mat src, cv::Mat &out_img, double compress);
 
 void enhance1(cv::Mat src_img, cv::Mat &out_img, double Gphi, double Iphi);
 //Gphi调整对比度
@@ -30,3 +31,6 @@ void enhance1(cv::Mat src_img, cv::Mat &out_img, double Gphi, double Iphi);
 
 //Iphi  调整亮度      >0  增加亮度
 //                    <0  较少亮度
+
+
+void denoise(cv::Mat src, cv::Mat &out_img);
