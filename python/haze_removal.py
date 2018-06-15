@@ -80,24 +80,26 @@ def deHaze(m, r=81, eps=0.001, w=0.95, maxV1=0.80, bGamma=False):
    
 if __name__ == '__main__':  
 #==============================================================================
-#     n=1
-#     camera = cv2.VideoCapture('C:\\Users\\zhxing\\Desktop\\张星\\张星\\去雾\\4_low.avi')
-# #==============================================================================
-# #     frame_num=camera.get(cv2.CV_CAP_PROP_FRAME_COUNT)
-# #==============================================================================
+    n=1
+    camera = cv2.VideoCapture('C:\\Users\\zhxing\\Desktop\\张星\\张星\\去雾\\2_low.avi')
+
+   # frame_num=camera.get(cv2.CV_CAP_PROP_FRAME_COUNT)
+
+#==============================================================================
 #     while(1):
 #         if(n<200):
 #             _,img=camera.read()
 #             cv2.imshow('img',img)
 #             
 #             img=img/255.0
-#             m=deHaze(img,bGamma=True)
+#             m=deHaze(img,bGamma=False)
 #             cv2.imshow('remove_fog',m)
 #             cv2.waitKey(20)
 #==============================================================================
+
         
 
-    img=cv2.imread('test.jpg')/255.0
+    img=cv2.imread('1.png')/255.0
     start=time.time()
     m = deHaze(img)
     end=time.time()

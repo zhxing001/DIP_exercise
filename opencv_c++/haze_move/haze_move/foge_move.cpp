@@ -58,7 +58,7 @@ cv::Mat guide_filter(cv::Mat &img, cv::Mat p, int r, double eps)
 
 	int height = img.rows;
 	int width = img.cols;
-	cv::Size kernel_sz(2*r+1, 2*r+1);
+	cv::Size kernel_sz(2*r-1, 2*r-1);
 
 	//计算四个均值滤波，
 	cv::Mat m_Img, m_p, m_Ip, m_i2;    
@@ -109,7 +109,7 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Poin
 	//因为我写的min_bgr函数是针对uint8的，所以就先做完最小值之后再去除以255
 	V1_min_32f = V1_min_32f / 255.0;
 
-	cv::Mat V1_g = fastGuidedFilter(V1_32f, V1_min_32f, r, eps,2);
+	cv::Mat V1_g = fastGuidedFilter(V1_32f, V1_min_32f, r, eps,4);
 	//导向滤波以暗通道为原图像，最小值滤波之后暗通道的图像为引导
 	cv::imshow("导向滤波结果", V1_g);
 	//std::cout << V1_g(cv::Rect(0, 0, 3, 3)) << std::endl;
@@ -140,7 +140,8 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Poin
 	vd.assign((float*)sum_hist2.datastart, (float*)sum_hist2.dataend);
 	auto it_=std::upper_bound(vd.begin(), vd.end(),0.999);
 
-	double value_0999 = (max - min) / bins*(it_ - vd.begin());   
+	double value_0999 = (max - min) / bins*(it_ - vd.begin());  
+	//double value_0999 = vd[999];
 	//value_0999就是说小于value_0999的像素占了总数的99.9%,也就是找到最大的0.1%的像素的最小值
     //找到这个之后去阈值化图像，就找到了候选大气光A值得候选位置，然后把这个二值化图像作为掩膜
     //去和导向滤波结果相乘，然后再找到最大值得位置去作为A值。
@@ -371,4 +372,51 @@ cv::Mat GuidedFilter(cv::Mat I, cv::Mat p, int r, double eps)
 	cv::Mat q = mean_a.mul(I) + mean_b;
 
 	return q;
+}
+
+
+
+void enhance(cv::Mat src, cv::Mat &out_img, double compress)
+{
+	cv::Mat src_img;
+	if (src.channels() < 2) cv::cvtColor(src, src_img, CV_BayerRG2GRAY);
+	else   src_img = src;
+
+
+	double max, min;
+	cv::minMaxLoc(src_img, &min, &max, NULL, NULL);
+
+	int bins = 1000;
+	const int channels[1] = { 0 };
+	float midRanges[] = { 0,max };
+	int hist_sz[] = { bins };
+	cv::Mat dstHist;
+	const float *ranges[] = { midRanges };
+
+	cv::calcHist(&src_img, 1, channels, cv::Mat(), dstHist, 1, hist_sz, ranges, true, false);
+
+	cv::Mat sum_hist;
+	cv::integral(dstHist, sum_hist, CV_32F);      //计算其积分图
+	cv::Mat sum_hist2 = sum_hist(cv::Rect(1, 1, 1, 1000)) / src_img.total();      //把第二列取出来
+
+	std::vector<float> vd;
+	vd.assign((float*)sum_hist2.datastart, (float*)sum_hist2.dataend);
+	auto it_up = std::upper_bound(vd.begin(), vd.end(), 1 - compress);        //最大的%5的边界
+	auto it_down = std::lower_bound(vd.begin(), vd.end(), compress);        //最小的%5的边界
+
+																			/*std::cout << "max--" << max << "  min--" << min << std::endl;
+																			std::cout << "it--" << it_up - vd.begin() << std::endl;
+																			std::cout << "it--" << it_down - vd.begin() << std::endl;*/
+
+	double value_up = (max - min) / bins*(it_up - vd.begin());
+	double value_down = (max - min) / bins*(it_down - vd.begin());
+
+	//std::cout << value_up << "  " << value_down;
+
+	//利用阈值两端截断
+	cv::threshold(src_img, src_img, value_up, 255, CV_THRESH_TRUNC);
+	//cv::threshold(src_img, src_img, value_down, 255, CV_THRESH_TOZERO);
+
+	//灰度拉伸
+	out_img = (src_img - value_down) / (value_up - value_down) * 255;
 }
