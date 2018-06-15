@@ -99,7 +99,7 @@ if __name__ == '__main__':
 
         
 
-    img=cv2.imread('1.png')/255.0
+    img=cv2.imread('12.jpg')/255.0
     start=time.time()
     m = deHaze(img)
     end=time.time()
