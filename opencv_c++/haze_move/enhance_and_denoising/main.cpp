@@ -17,35 +17,37 @@ int num_frame = video.get(CV_CAP_PROP_FRAME_COUNT);
 int main()
 {
 
-	Mat frame;
-	Mat frame_de;
-	Mat enhance_frame;
-	for (int i = 1; i < num_frame; i++)
-	{
-		video.read(frame);
-		
-		denoise(frame, frame_de);
-		enhance(frame_de, enhance_frame, 0.05);
-		
-		imshow("source_img", frame);
-		imshow("enhance", enhance_frame);
-		waitKey(10);
-	}
+	//Mat frame;
+	//Mat frame_de;
+	//Mat enhance_frame;
+	//for (int i = 1; i < num_frame; i++)
+	//{
+	//	video.read(frame);
+	//	
+	//	denoise(frame, frame_de);
+	//	enhance(frame_de, enhance_frame, 0.05);
+	//	
+	//	imshow("source_img", frame);
+	//	imshow("enhance", enhance_frame);
+	//	waitKey(10);
+	//}
 
-	/*Mat img = imread("8.bmp");
+	Mat img = imread("13.png");
 	imshow("img", img);
 	Mat img_enhance;
 	Mat img_8uc1;
 	cvtColor(img, img_8uc1,CV_BGR2GRAY);
 
 	enhance1(img, img_enhance, 5, 10);
+	imshow("enhance1", img_enhance);
 	Mat img_enhance_UC8;
-	img_enhance.convertTo(img_enhance_UC8, CV_8UC1);
+
+	img_8uc1.convertTo(img_enhance_UC8, CV_8UC1);
 
 
-	enhance(img, img_enhance, 0.05);
-	imshow("enhance", img_enhance);*/
-
+	enhance(img, img_enhance, 0.001);
+	imshow("enhance", img_enhance);
+	imwrite("13.bmp",img_enhance);
 	//Mat img = imread("1_noise.bmp");
 	//imshow("source_img", img);
 	////img.convertTo(img_8uc1, CV_8UC1);
