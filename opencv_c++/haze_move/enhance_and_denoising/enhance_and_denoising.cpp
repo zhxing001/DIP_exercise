@@ -8,6 +8,7 @@ void enhance1(cv::Mat src_img, cv::Mat &out_img, double Gphi, double Iphi)
 	cv::Scalar mean;
 	mean=cv::mean(src_img);
 	
+
 	double d_mean = mean.val[0];
 	cv::Mat src_img_32f;
 	src_img.convertTo(src_img_32f, CV_32F);
@@ -19,7 +20,7 @@ void enhance1(cv::Mat src_img, cv::Mat &out_img, double Gphi, double Iphi)
 void enhance(cv::Mat src, cv::Mat &out_img, double compress)
 {
 	cv::Mat src_img;
-	if (src.channels() < 2) cv::cvtColor(src, src_img, CV_BayerRG2GRAY);
+	if (src.channels() >1) cv::cvtColor(src, src_img, CV_BGR2GRAY);
 	else   src_img = src;
 	
 	
@@ -54,11 +55,11 @@ void enhance(cv::Mat src, cv::Mat &out_img, double compress)
 	//std::cout << value_up << "  " << value_down;
 
 	//利用阈值两端截断
-	cv::threshold(src_img, src_img, value_up, 255, CV_THRESH_TRUNC);
+	cv::threshold(src, src, value_up, 255, CV_THRESH_TRUNC);
 	//cv::threshold(src_img, src_img, value_down, 255, CV_THRESH_TOZERO);
 
 	//灰度拉伸
-	out_img = (src_img - value_down) / (value_up - value_down) * 255;
+	out_img = (src - value_down) / (value_up - value_down) * 255;
 }
 
 //去燥，先中值去掉椒盐，再用均值除去一些高频

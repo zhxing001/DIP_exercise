@@ -50,7 +50,7 @@ int main()
 		
 
 		current_img.copyTo(display_img(Rect(49 - drift.x, 49 - drift.y, width, height)));
-		putText(display_img, "drift:   " + to_string(drift.x) +" , "+ to_string(drift.y), Point(85, 295), 1, 1, Scalar(0, 0, 255), 2);
+		putText(display_img, "drift:   " + to_string(drift.x) +" , "+ to_string(drift.y), Point(85, 300), 1, 2, Scalar(0, 0, 255), 1);
 		rectangle(current_img, template_, Scalar(255, 0, 0));
 		    //全部清零，下一张图片来了再说
 		imshow("test", current_img);

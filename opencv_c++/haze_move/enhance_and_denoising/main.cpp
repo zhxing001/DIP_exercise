@@ -32,20 +32,20 @@ int main()
 	//	waitKey(10);
 	//}
 
-	Mat img = imread("13.png");
+	Mat img = imread("8.bmp");
 	imshow("img", img);
 	Mat img_enhance;
 	Mat img_8uc1;
 	cvtColor(img, img_8uc1,CV_BGR2GRAY);
 
-	enhance1(img, img_enhance, 5, 10);
+	enhance1(img, img_enhance, 5, 5);
 	imshow("enhance1", img_enhance);
 	Mat img_enhance_UC8;
 
 	img_8uc1.convertTo(img_enhance_UC8, CV_8UC1);
 
 
-	enhance(img, img_enhance, 0.001);
+	enhance(img, img_enhance, 0.05);
 	imshow("enhance", img_enhance);
 	imwrite("13.bmp",img_enhance);
 	//Mat img = imread("1_noise.bmp");
