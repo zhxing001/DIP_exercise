@@ -9,10 +9,17 @@ import cv2
 import numpy as np  
 import time
 import matplotlib.pyplot as plt
+
+kernelRaito=0.01
    
-def zmMinFilterGray(src, r=7):  
+def zmMinFilterGray(src):
+    sz=np.shape(src)
+    
+    r=np.floor(max(sz[0]*kernelRaito,sz[1]*kernelRaito,3))
+    r=int(r)
+    print(r)
     '''''最小值滤波，r是滤波器半径'''  
-    return cv2.erode(src,np.ones((2*r-1,2*r-1)))
+    return cv2.erode(src,np.ones((r,r)))
 #==============================================================================
 #     if r <= 0:  
 #         return src  
@@ -48,7 +55,7 @@ def guidedfilter(I, p, r, eps):
 def getV1(m, r, eps, w, maxV1):  #输入rgb图像，值范围[0,1]  
     '''''计算大气遮罩图像V1和光照值A, V1 = 1-t/A'''  
     V1 = np.min(m,2)                                         #得到暗通道图像  
-    V1 = guidedfilter(V1, zmMinFilterGray(V1,7), r, eps)     #使用引导滤波优化 
+    V1 = guidedfilter(V1, zmMinFilterGray(V1), r, eps)     #使用引导滤波优化 
     
     bins = 1000  
     
@@ -99,7 +106,7 @@ if __name__ == '__main__':
 
         
 
-    img=cv2.imread('12.jpg')/255.0
+    img=cv2.imread('img_left.jpg')/255.0
     start=time.time()
     m = deHaze(img)
     end=time.time()
@@ -113,5 +120,9 @@ if __name__ == '__main__':
 # 
 # 
     cv2.imwrite('defog.jpg', m) 
+    cv2.namedWindow('x')
+    cv2.imshow('x',np.uint8(m))
+    cv2.waitKey(0)
+
 # 
 #==============================================================================
