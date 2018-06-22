@@ -7,7 +7,7 @@ void min_filter(cv::Mat &src_img, cv::Mat &res_img, int kernel_size)
 {
 	cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(2*kernel_size-1, 2*kernel_size-1));
 	cv::erode(src_img, res_img, element);
-	cv::imshow("dark_channel", res_img);
+	//cv::imshow("dark_channel", res_img);
 }
 
 //获取通道的最小值，好像只能自己遍历做了，我是用指针做的，貌似这样最快
@@ -103,7 +103,8 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Poin
 	V1_32f = V1_32f / 255.0;
 
 	cv::Mat V1_min_filter;
-	min_filter(V1, V1_min_filter, 7);
+	int r_min = (r / 4) < 3 ? 3 : (r / 4);
+	min_filter(V1, V1_min_filter, r/4);
 	cv::Mat V1_min_32f;
 	V1_min_filter.convertTo(V1_min_32f, CV_32F);        
 	//因为我写的min_bgr函数是针对uint8的，所以就先做完最小值之后再去除以255
@@ -111,7 +112,7 @@ void getV1(cv::Mat &m,int r, double eps,double w,double maxV1,double &A,cv::Poin
 
 	cv::Mat V1_g = fastGuidedFilter(V1_32f, V1_min_32f, r, eps,4);
 	//导向滤波以暗通道为原图像，最小值滤波之后暗通道的图像为引导
-	cv::imshow("导向滤波结果", V1_g);
+	//cv::imshow("导向滤波结果", V1_g);
 	//std::cout << V1_g(cv::Rect(0, 0, 3, 3)) << std::endl;
 	double max, min;
 	cv::minMaxLoc(V1_g, &min, &max, NULL, NULL);

@@ -1,6 +1,8 @@
 #include<iostream>
 #include<opencv2\highgui\highgui.hpp>
 #include"fog_move.hpp"
+#include<algorithm>
+
 
 using namespace std;
 using namespace cv;
@@ -35,9 +37,15 @@ int main()
 
 
 	double start, time_cost;
-
-	cv::VideoCapture Video("C:\\Users\\zhxing\\Desktop\\张星\\张星\\去雾\\5_low.avi");
+	const double r_ratio = 0.01;
+	cv::VideoCapture Video("C:\\Users\\zhxing\\Desktop\\张星\\张星\\去雾\\7.avi");
 	unsigned video_num = Video.get(CV_CAP_PROP_FRAME_COUNT);
+	unsigned height = Video.get(CV_CAP_PROP_FRAME_HEIGHT);
+	unsigned width = Video.get(CV_CAP_PROP_FRAME_WIDTH);
+	cout << height << "  " << width << endl;
+	double r_= max(height*r_ratio, width*r_ratio);
+	int r = max(r_, 3.0) * 4 / 2;
+	cout << r << endl;
 
 	Mat img;
 	Mat img_remove_fog;
@@ -46,7 +54,7 @@ int main()
 	{
 		Video.read(img);
 		start = static_cast<double>(getTickCount());
-		img_remove_fog = deHaze(img,49);
+		img_remove_fog = deHaze(img,r);
 		time_cost = ((double)getTickCount() - start) / getTickFrequency();
 	
 		
