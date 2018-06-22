@@ -1,6 +1,6 @@
 clc,close all;
 
-video=VideoReader('C:\Users\zhxing\Desktop\张星\张星\去雾\3_low.avi');
+video=VideoReader('C:\Users\zhxing\Desktop\张星\张星\去雾\5_low.avi');
 video_nums=video.NumberOfFrames;
 for frame=1:video_nums
     img=read(video,frame);
