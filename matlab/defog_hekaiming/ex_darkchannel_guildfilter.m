@@ -7,7 +7,7 @@ close all
 kenlRatio = .01;
 minAtomsLight = 240;
 % image_name =  'test images\21.bmp';
-image_name =  'test.jpg';
+image_name =  '2.jpg';
 img=imread(image_name);
 figure,imshow(uint8(img)), title('src');
 
@@ -54,6 +54,7 @@ J(:,:,2) = (img_d(:,:,2) - (1-t_d)*A)./t_d;
 J(:,:,3) = (img_d(:,:,3) - (1-t_d)*A)./t_d;
 
 figure,imshow(uint8(J)), title('J');
+%这个是没有经过滤波的
 % figure,imshow(rgb2gray(uint8(abs(J-img_d)))), title('J-img_d');
 % a = sum(sum(rgb2gray(uint8(abs(J-img_d))))) / (h*w)
 % return;
