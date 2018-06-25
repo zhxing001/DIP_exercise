@@ -5,9 +5,8 @@
 
 %%
 function img_dfog=remove_fog_xd(img)
-figure,
+%figure,
 %imshow(img),title('原图');
-img=double(img);
 sz=size(img);
 
 kernelsz=(floor(max([sz(1)*0.01,sz(2)*0.01,3])));
@@ -25,7 +24,7 @@ for i=1:3
     end
 end
 
-T=getT(img,kernelsz,A,0.0001);
+T=getT(double(img),kernelsz,A,0.0001);
 
 
 r = kernelsz*4;
@@ -33,15 +32,18 @@ eps = 10^-6;
 tx=guidedfilter(double(rgb2gray(img))/255,T,r,eps);        %引导滤波获得透射率图
 %figure,imshow(tx,[]),title('透射率图')
 
+figure,imshow(tx),title('tx');
+
 img=double(img);
+%figure,imshow(img,[]),title('img');
 
 Ix1=(img(:,:,1));             %通道分离
 Ix2=(img(:,:,2));
 Ix3=(img(:,:,3));
 
 Jx1_=Ix1-A(1)+A(1)*tx;
-Jx1=Jx1_./tx;
-%figure,imshow(Jx1,[]),title('JX1');
+Jx1=Jx1_./tx
+figure,imshow(Jx1,[]),title('JX1');
 
 
 Jx2_=Ix2-A(2)+A(2)*tx;

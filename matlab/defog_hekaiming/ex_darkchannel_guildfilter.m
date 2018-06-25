@@ -7,7 +7,7 @@ close all
 kenlRatio = .01;
 minAtomsLight = 240;
 % image_name =  'test images\21.bmp';
-image_name =  '2.jpg';
+image_name =  '1.jpg';
 img=imread(image_name);
 figure,imshow(uint8(img)), title('src');
 
@@ -41,6 +41,8 @@ t_d=double(t)/255;
 sum(sum(t_d))/(h*w)
 
 A = min([minAtomsLight, max(max(dc2))])
+
+A
 
 
 J = zeros(h,w,3);

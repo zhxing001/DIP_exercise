@@ -8,7 +8,7 @@
 
 %% ------------------
 function T=getT(img,kernelsz,A,eps)      
-
+img=double(img);
 se = strel('rectangle',[kernelsz,kernelsz]);
 img_c=cell(3);
 img_c{1}=(img(:,:,1)-A(1))/(-A(1));         %分离通道并变换
@@ -35,15 +35,18 @@ img_dilate{3} = imdilate(img_d{3},se);
 img_e3=cat(3,img_erode{1},img_erode{2},img_erode{3});
 img_d3=cat(3,img_dilate{1},img_dilate{2},img_dilate{3});
 
+
 sz=size(img);
 min_=zeros(sz(1),sz(2));
 max_=zeros(sz(1),sz(2));
 for i=1:sz(1)
     for j=1:sz(2)
         min_(i,j)=min(img_e3(i,j,:));  
-        max_(i,j)=min(img_d3(i,j,:));
+        max_(i,j)=max(img_d3(i,j,:));
     end
 end
 
-T=max(min_(i,j),max_(i,j));
+T=min_;
+max(min_,max_);
+
 end
