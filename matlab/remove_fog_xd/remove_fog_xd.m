@@ -7,15 +7,12 @@
 function img_dfog=remove_fog_xd(img)
 figure,
 %imshow(img),title('原图');
+img=double(img);
 sz=size(img);
 
 kernelsz=(floor(max([sz(1)*0.01,sz(2)*0.01,3])));
 
-dc=dark_channel(img,kernelsz);          %获取暗通道图像
-t=255-dc;
-t_d=double(t)/255;
 A=getA(img);                   %获取大气光值
-
 for i=1:3
     if(A(1)<240) 
         A(1)=240;  
@@ -28,11 +25,12 @@ for i=1:3
     end
 end
 
+T=getT(img,kernelsz,A,0.0001);
 
 
 r = kernelsz*4;
 eps = 10^-6;
-tx=guidedfilter(double(rgb2gray(img))/255,t_d,r,eps);        %引导滤波获得透射率图
+tx=guidedfilter(double(rgb2gray(img))/255,T,r,eps);        %引导滤波获得透射率图
 %figure,imshow(tx,[]),title('透射率图')
 
 img=double(img);
