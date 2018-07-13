@@ -71,7 +71,7 @@ def getV1(m, r, eps, w, maxV1):  #输入rgb图像，值范围[0,1]
     A  = np.mean(m,2)[V1>=ht[1][lmax]].max()         
     V1 = np.minimum(V1*w, maxV1)                   #对值范围进行限制,opencv中用阈值化做就可以了 
     #plt.imshow(V1,'gray')
-    print(A)
+   # print(A)
     return V1,A  
    
 def deHaze(m, r=81, eps=0.001, w=0.95, maxV1=0.80, bGamma=False):  
@@ -88,41 +88,47 @@ def deHaze(m, r=81, eps=0.001, w=0.95, maxV1=0.80, bGamma=False):
 if __name__ == '__main__':  
 #==============================================================================
     n=1
-    camera = cv2.VideoCapture('C:\\Users\\zhxing\\Desktop\\张星\\张星\\去雾\\2_low.avi')
+    camera = cv2.VideoCapture('C:\\Users\\zhxing\\Desktop\\张星\\张星\\去雾\\3_low.avi')
 
    # frame_num=camera.get(cv2.CV_CAP_PROP_FRAME_COUNT)
 
-#==============================================================================
-#     while(1):
-#         if(n<200):
-#             _,img=camera.read()
-#             cv2.imshow('img',img)
-#             
-#             img=img/255.0
-#             m=deHaze(img,bGamma=False)
-#             cv2.imshow('remove_fog',m)
-#             cv2.waitKey(20)
-#==============================================================================
+    while(1):
+        if(n<200):
+            _,img=camera.read()
+            cv2.imshow('img',img)
+            
+            img=img/255.0
+            start=time.time()
+            m=deHaze(img,bGamma=False)
+            end=time.time()
+            print('time_cost:\t'+str(end-start)) 
+            cv2.imshow('remove_fog',m)
+            cv2.waitKey(20)
 
         
 
-    img=cv2.imread('img_left.jpg')/255.0
-    start=time.time()
-    m = deHaze(img)
-    end=time.time()
-    print('time_cost:\t'+str(end-start))    
-    m=m*255.0
-   # plt.imshow(m,'BRG')
+#==============================================================================
+#     img=cv2.imread('img_left.jpg')/255.0
+#     start=time.time()
+#     m = deHaze(img)
+#     end=time.time()
+#     print('time_cost:\t'+str(end-start))    
+#     m=m*255.0
+#     cv2.imshow("img",m)
+#     cv2.waitKey(20)
+#==============================================================================
 # # =============================================================================
 # #     m=np.uint8(m)
 # #     plt.imshow(m,'gray')
 # # =============================================================================
 # 
 # 
-    cv2.imwrite('defog.jpg', m) 
-    cv2.namedWindow('x')
-    cv2.imshow('x',np.uint8(m))
-    cv2.waitKey(0)
+#==============================================================================
+#     cv2.imwrite('defog.jpg', m) 
+#     cv2.namedWindow('x')
+#     cv2.imshow('x',np.uint8(m))
+#     cv2.waitKey(0)
+#==============================================================================
 
 # 
 #==============================================================================
