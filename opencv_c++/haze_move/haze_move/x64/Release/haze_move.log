@@ -1,4 +1,4 @@
-﻿生成启动时间为 2018/6/22 19:15:15。
+﻿生成启动时间为 2018/7/20 8:56:34。
      1>项目“C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\haze_move\haze_move.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Release\\" /Fd"x64\Release\vc140.pdb" /Gd /TP /errorReport:prompt main.cpp
@@ -9,7 +9,7 @@
      1>main.cpp(47): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
      1>main.cpp(57): warning C4800: “int”: 将值强制为布尔值“true”或“false”(性能警告)
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Release\haze_move.exe" /NOLOGO opencv_world330.lib opencv_world330d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Release\haze_move.pdb" /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Release\haze_move.lib" /MACHINE:X64 x64\Release\foge_move.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Release\haze_move.exe" /NOLOGO opencv_world330.lib opencv_world330d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Release\haze_move.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Release\haze_move.lib" /MACHINE:X64 x64\Release\foge_move.obj
          x64\Release\main.obj
          正在生成代码
          1 of 222 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
@@ -21,4 +21,4 @@
 
 已成功生成。
 
-已用时间 00:00:02.35
+已用时间 00:00:02.04

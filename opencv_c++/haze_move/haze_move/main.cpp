@@ -38,7 +38,7 @@ int main()
 
 	double start, time_cost;
 	const double r_ratio = 0.01;
-	cv::VideoCapture Video("C:\\Users\\zhxing\\Desktop\\张星\\张星\\去雾\\7.avi");
+	cv::VideoCapture Video("C:\\Users\\zhxing\\Desktop\\张星\\去雾\\8.avi");
 	unsigned video_num = Video.get(CV_CAP_PROP_FRAME_COUNT);
 	unsigned height = Video.get(CV_CAP_PROP_FRAME_HEIGHT);
 	unsigned width = Video.get(CV_CAP_PROP_FRAME_WIDTH);
