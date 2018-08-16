@@ -9,6 +9,21 @@ using namespace cv;
 
 int main()
 {
+
+	Mat testimg = imread("test.jpg");
+	double s, e;
+	Mat img_rfog;
+	testimg.copyTo(img_rfog);
+
+	for (int i = 0; i < 10; i++)
+	{
+	
+		s = static_cast<double>(getTickCount());
+		img_rfog = deHaze(testimg, 5);
+		cout << ((double)getTickCount() - s) / getTickFrequency() << endl;
+	}
+	
+
 	/*Mat img1= imread("test.jpg");
 	imshow("Ô­Í¼", img1);*/
 	
@@ -36,7 +51,7 @@ int main()
 	cv::Mat V1;*/
 
 
-	double start, time_cost;
+	/*double start, time_cost;
 	const double r_ratio = 0.01;
 	cv::VideoCapture Video("C:\\Users\\zhxing\\Desktop\\ÕÅÐÇ\\È¥Îí\\8.avi");
 	unsigned video_num = Video.get(CV_CAP_PROP_FRAME_COUNT);
@@ -63,7 +78,7 @@ int main()
 		imshow("fog_remove", img_remove_fog);
 		waitKey(10);
 	}
-
+*/
 
 	//double start = static_cast<double>(getTickCount());
 	/*start = static_cast<double>(getTickCount());
