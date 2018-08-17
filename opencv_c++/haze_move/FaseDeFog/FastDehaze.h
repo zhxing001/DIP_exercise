@@ -182,6 +182,7 @@ Mat FastDehaze(Mat &Img, const double p,const int kernel_size,double eps)
 	for (int i = 0; i < 3; i++)
 	{
 		/*cv::divide(Fenzi[i], fenmu, div_tmp);
+		cout<<div_tmp;
 		Img_split_dehaze.push_back(div_tmp);*/        
 		
 		//一开始是注释的这里错了，从最前面一点一点检查才发现，不过不知道哪里有问题，改成new对象就可以了，神奇！
