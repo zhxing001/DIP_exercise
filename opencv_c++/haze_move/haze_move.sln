@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "haze_move", "haze_move\haze_move.vcxproj", "{06C4FBAF-31FC-499D-93C4-C2C723D38E2F}"
 EndProject
@@ -11,7 +11,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "enhance_and_denoising", "en
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "readBmp", "readBmp\readBmp.vcxproj", "{B449C6BF-991A-49C6-B53B-53AC9EA1C68F}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "defog", "defog\defog.vdproj", "{ED5043DC-EB12-47F2-953D-BE9832124E9C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FaseDeFog", "FaseDeFog\FaseDeFog.vcxproj", "{D56BA027-C038-4C9F-86FF-3539E1E572A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +53,14 @@ Global
 		{B449C6BF-991A-49C6-B53B-53AC9EA1C68F}.Release|x64.Build.0 = Release|x64
 		{B449C6BF-991A-49C6-B53B-53AC9EA1C68F}.Release|x86.ActiveCfg = Release|Win32
 		{B449C6BF-991A-49C6-B53B-53AC9EA1C68F}.Release|x86.Build.0 = Release|Win32
-		{ED5043DC-EB12-47F2-953D-BE9832124E9C}.Debug|x64.ActiveCfg = Debug
-		{ED5043DC-EB12-47F2-953D-BE9832124E9C}.Debug|x86.ActiveCfg = Debug
-		{ED5043DC-EB12-47F2-953D-BE9832124E9C}.Release|x64.ActiveCfg = Release
-		{ED5043DC-EB12-47F2-953D-BE9832124E9C}.Release|x86.ActiveCfg = Release
+		{D56BA027-C038-4C9F-86FF-3539E1E572A6}.Debug|x64.ActiveCfg = Debug|x64
+		{D56BA027-C038-4C9F-86FF-3539E1E572A6}.Debug|x64.Build.0 = Debug|x64
+		{D56BA027-C038-4C9F-86FF-3539E1E572A6}.Debug|x86.ActiveCfg = Debug|Win32
+		{D56BA027-C038-4C9F-86FF-3539E1E572A6}.Debug|x86.Build.0 = Debug|Win32
+		{D56BA027-C038-4C9F-86FF-3539E1E572A6}.Release|x64.ActiveCfg = Release|x64
+		{D56BA027-C038-4C9F-86FF-3539E1E572A6}.Release|x64.Build.0 = Release|x64
+		{D56BA027-C038-4C9F-86FF-3539E1E572A6}.Release|x86.ActiveCfg = Release|Win32
+		{D56BA027-C038-4C9F-86FF-3539E1E572A6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

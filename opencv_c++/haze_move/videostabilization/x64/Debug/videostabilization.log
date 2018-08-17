@@ -1,17 +1,10 @@
-﻿生成启动时间为 2018/6/13 16:02:18。
-     1>项目“C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\videostabilization\videostabilization.vcxproj”在节点 2 上(Build 个目标)。
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt main.cpp
-         main.cpp
-     1>c:\users\zhxing\desktop\dip\opencv_c++\haze_move\videostabilization\main.cpp(16): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-     1>c:\users\zhxing\desktop\dip\opencv_c++\haze_move\videostabilization\main.cpp(17): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-     1>c:\users\zhxing\desktop\dip\opencv_c++\haze_move\videostabilization\main.cpp(18): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Debug\videostabilization.exe" /INCREMENTAL /NOLOGO opencv_world330.lib opencv_world330d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Debug\videostabilization.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Debug\videostabilization.lib" /MACHINE:X64 x64\Debug\main.obj
-         x64\Debug\template_match.obj
-         videostabilization.vcxproj -> C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Debug\videostabilization.exe
-     1>已完成生成项目“C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\videostabilization\videostabilization.vcxproj”(Build 个目标)的操作。
-
-已成功生成。
-
-已用时间 00:00:02.65
+﻿x64\Debug\template_match.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+main.obj : error LNK2019: 无法解析的外部符号 "class cv::debug_build_guard::_InputOutputArray const & __cdecl cv::noArray(void)" (?noArray@cv@@YAAEBV_InputOutputArray@debug_build_guard@1@XZ)，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 "public: void __cdecl cv::Mat::copyTo(class cv::debug_build_guard::_OutputArray const &)const " (?copyTo@Mat@cv@@QEBAXAEBV_OutputArray@debug_build_guard@2@@Z)，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 "public: class cv::Mat & __cdecl cv::Mat::setTo(class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_InputArray const &)" (?setTo@Mat@cv@@QEAAAEAV12@AEBV_InputArray@debug_build_guard@2@0@Z)，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 "public: virtual bool __cdecl cv::VideoCapture::read(class cv::debug_build_guard::_OutputArray const &)" (?read@VideoCapture@cv@@UEAA_NAEBV_OutputArray@debug_build_guard@2@@Z)，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::imshow(class cv::String const &,class cv::debug_build_guard::_InputArray const &)" (?imshow@cv@@YAXAEBVString@1@AEBV_InputArray@debug_build_guard@1@@Z)，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::cvtColor(class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_OutputArray const &,int,int)" (?cvtColor@cv@@YAXAEBV_InputArray@debug_build_guard@1@AEBV_OutputArray@31@HH@Z)，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::putText(class cv::debug_build_guard::_InputOutputArray const &,class cv::String const &,class cv::Point_<int>,int,double,class cv::Scalar_<double>,int,int,bool)" (?putText@cv@@YAXAEBV_InputOutputArray@debug_build_guard@1@AEBVString@1@V?$Point_@H@1@HNV?$Scalar_@N@1@HH_N@Z)，该符号在函数 main 中被引用
+main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl template_matching(class cv::Mat,class cv::Mat &,class cv::Rect_<int> &,class cv::Point_<int> &)" (?template_matching@@YAXVMat@cv@@AEAV12@AEAV?$Rect_@H@2@AEAV?$Point_@H@2@@Z)，该符号在函数 main 中被引用
+C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\haze_move\x64\Debug\videostabilization.exe : fatal error LNK1120: 8 个无法解析的外部命令

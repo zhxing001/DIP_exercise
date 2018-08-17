@@ -10,7 +10,7 @@ using namespace cv;
 int main()
 {
 
-	Mat testimg = imread("test.jpg");
+	Mat testimg = imread("12.jpg");
 	double s, e;
 	Mat img_rfog;
 	testimg.copyTo(img_rfog);
@@ -20,7 +20,10 @@ int main()
 	
 		s = static_cast<double>(getTickCount());
 		img_rfog = deHaze(testimg, 5);
+		
 		cout << ((double)getTickCount() - s) / getTickFrequency() << endl;
+		imshow("defog", img_rfog);
+		waitKey(100);
 	}
 	
 

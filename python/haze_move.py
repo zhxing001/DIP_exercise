@@ -7,25 +7,61 @@ Created on Sat Jun  9 11:28:14 2018
 
 import cv2  
 import numpy as np
-
+import matplotlib.pyplot as plt
+import time
 
 p=1.3
-img=cv2.imread('test.jpg')
+img=cv2.imread('12.jpg')
+
+
 #cv2.imshow('cource_img',img)
 
+start=time.time()
+
+#暗通道计算
 Min_img=np.min(img,2)      # 暗通道
-#cv2.imshow('dark_channel',Min_img)
+#cv2.imshow('dark_channel',Min_img)]
+#plt.figure()
+#plt.imshow(img)
 
+#均值滤波
+M_mfilter=cv2.blur(Min_img,(15,15))   #暗通道进行均值滤波，这个半径
+#cv2.imshow('blur',M_mfilter)
 
-M_mfilter=cv2.blur(Min_img,(7,7))   #暗通道进行均值滤波，这个半径
-cv2.imshow('blur',M_mfilter)
-
+#求均值
 M_av=np.mean(Min_img)       # 暗通道取均值
 
 
 
-cv2.waitKey(1000)
+#计算L
+min_09=min(p*M_av/255.0,0.9)*M_mfilter     #求M_ac
+min_=np.array([min_09,Min_img])        #矩阵组合
 
+L=np.min(min_,0)
+
+
+#计算A
+Max_img=np.max(img,2)
+M_max_img=np.max(Max_img)
+M_ave_img=np.max(M_mfilter)
+A=0.5*(np.float32(M_max_img)+np.float32(M_ave_img))
+
+
+
+F=(np.transpose(np.float32(img),[2,0,1])-np.array([L,L,L]))/(1-L/A)
+
+end=time.time()
+print(end-start)
+F=np.uint8(F)
+
+F_np=np.transpose(F,[1,2,0])
+plt.figure()
+plt.imshow(F_np)
+
+#cv2.imshow('defog',F)
+
+
+#cv2.waitKey(1000)
 
 
 '''
