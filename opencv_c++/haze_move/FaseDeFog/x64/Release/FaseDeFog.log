@@ -1,9 +1,2 @@
-﻿  main.cpp
-main.cpp(10): warning C4101: “end”: 未引用的局部变量
-  正在生成代码
-  6 of 156 functions ( 3.8%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    6 functions had inline decision re-evaluated but remain unchanged
-  已完成代码的生成
-  FaseDeFog.vcxproj -> C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\haze_move\x64\Release\FaseDeFog.exe
+﻿  FaseDeFog.vcxproj -> C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\haze_move\x64\Release\FaseDeFog.exe
   FaseDeFog.vcxproj -> C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\haze_move\x64\Release\FaseDeFog.pdb (Full PDB)
