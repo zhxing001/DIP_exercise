@@ -1,12 +1,17 @@
-﻿  main.cpp
-main.obj : error LNK2019: 无法解析的外部符号 "class cv::debug_build_guard::_InputOutputArray const & __cdecl cv::noArray(void)" (?noArray@cv@@YAAEBV_InputOutputArray@debug_build_guard@1@XZ)，该符号在函数 "class cv::Mat __cdecl getLx_A(class cv::Mat &,class cv::Mat &,double,int,double &)" (?getLx_A@@YA?AVMat@cv@@AEAV12@0NHAEAN@Z) 中被引用
-main.obj : error LNK2019: 无法解析的外部符号 "public: void __cdecl cv::Mat::convertTo(class cv::debug_build_guard::_OutputArray const &,int,double,double)const " (?convertTo@Mat@cv@@QEBAXAEBV_OutputArray@debug_build_guard@2@HNN@Z)，该符号在函数 "class cv::Mat __cdecl FastDehaze(class cv::Mat &,double,int)" (?FastDehaze@@YA?AVMat@cv@@AEAV12@NH@Z) 中被引用
-main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::divide(class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_OutputArray const &,double,int)" (?divide@cv@@YAXAEBV_InputArray@debug_build_guard@1@0AEBV_OutputArray@31@NH@Z)，该符号在函数 "class cv::Mat __cdecl FastDehaze(class cv::Mat &,double,int)" (?FastDehaze@@YA?AVMat@cv@@AEAV12@NH@Z) 中被引用
-main.obj : error LNK2019: 无法解析的外部符号 "class cv::Scalar_<double> __cdecl cv::mean(class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_InputArray const &)" (?mean@cv@@YA?AV?$Scalar_@N@1@AEBV_InputArray@debug_build_guard@1@0@Z)，该符号在函数 "class cv::Mat __cdecl getLx_A(class cv::Mat &,class cv::Mat &,double,int,double &)" (?getLx_A@@YA?AVMat@cv@@AEAV12@0NHAEAN@Z) 中被引用
-main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::minMaxLoc(class cv::debug_build_guard::_InputArray const &,double *,double *,class cv::Point_<int> *,class cv::Point_<int> *,class cv::debug_build_guard::_InputArray const &)" (?minMaxLoc@cv@@YAXAEBV_InputArray@debug_build_guard@1@PEAN1PEAV?$Point_@H@1@20@Z)，该符号在函数 "class cv::Mat __cdecl getLx_A(class cv::Mat &,class cv::Mat &,double,int,double &)" (?getLx_A@@YA?AVMat@cv@@AEAV12@0NHAEAN@Z) 中被引用
-main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::merge(class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_OutputArray const &)" (?merge@cv@@YAXAEBV_InputArray@debug_build_guard@1@AEBV_OutputArray@31@@Z)，该符号在函数 "class cv::Mat __cdecl FastDehaze(class cv::Mat &,double,int)" (?FastDehaze@@YA?AVMat@cv@@AEAV12@NH@Z) 中被引用
-main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::split(class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_OutputArray const &)" (?split@cv@@YAXAEBV_InputArray@debug_build_guard@1@AEBV_OutputArray@31@@Z)，该符号在函数 "class cv::Mat __cdecl FastDehaze(class cv::Mat &,double,int)" (?FastDehaze@@YA?AVMat@cv@@AEAV12@NH@Z) 中被引用
-main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::imshow(class cv::String const &,class cv::debug_build_guard::_InputArray const &)" (?imshow@cv@@YAXAEBVString@1@AEBV_InputArray@debug_build_guard@1@@Z)，该符号在函数 main 中被引用
-main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::blur(class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_OutputArray const &,class cv::Size_<int>,class cv::Point_<int>,int)" (?blur@cv@@YAXAEBV_InputArray@debug_build_guard@1@AEBV_OutputArray@31@V?$Size_@H@1@V?$Point_@H@1@H@Z)，该符号在函数 "class cv::Mat __cdecl getLx_A(class cv::Mat &,class cv::Mat &,double,int,double &)" (?getLx_A@@YA?AVMat@cv@@AEAV12@0NHAEAN@Z) 中被引用
-main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::erode(class cv::debug_build_guard::_InputArray const &,class cv::debug_build_guard::_OutputArray const &,class cv::debug_build_guard::_InputArray const &,class cv::Point_<int>,int,int,class cv::Scalar_<double> const &)" (?erode@cv@@YAXAEBV_InputArray@debug_build_guard@1@AEBV_OutputArray@31@0V?$Point_@H@1@HHAEBV?$Scalar_@N@1@@Z)，该符号在函数 "void __cdecl min_filter(class cv::Mat &,class cv::Mat &,int)" (?min_filter@@YAXAEAVMat@cv@@0H@Z) 中被引用
-C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\haze_move\x64\Debug\FaseDeFog.exe : fatal error LNK1120: 10 个无法解析的外部命令
+﻿生成启动时间为 2018/8/20 14:13:20。
+     1>项目“C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\FaseDeFog\FaseDeFog.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\users\zhxing\desktop\dip\opencv_c++\haze_move\fasedefog\fastdehaze.h(122): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+     1>c:\users\zhxing\desktop\dip\opencv_c++\haze_move\fasedefog\fastdehaze.h(164): warning C4244: “=”: 从“double”转换到“float”，可能丢失数据
+     1>c:\users\zhxing\desktop\dip\opencv_c++\haze_move\fasedefog\fastdehaze.h(177): warning C4244: “参数”: 从“const double”转换到“float”，可能丢失数据
+     1>c:\users\zhxing\desktop\dip\opencv_c++\haze_move\fasedefog\main.cpp(11): warning C4101: “end”: 未引用的局部变量
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Debug\FaseDeFog.exe" /INCREMENTAL /NOLOGO opencv_world330.lib opencv_world330d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Debug\FaseDeFog.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Debug\FaseDeFog.lib" /MACHINE:X64 x64\Debug\main.obj
+         FaseDeFog.vcxproj -> C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Debug\FaseDeFog.exe
+     1>已完成生成项目“C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\FaseDeFog\FaseDeFog.vcxproj”(Build 个目标)的操作。
+
+已成功生成。
+
+已用时间 00:00:02.53
