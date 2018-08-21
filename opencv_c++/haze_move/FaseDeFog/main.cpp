@@ -1,13 +1,13 @@
 #include"FastDehaze.h"
-#include"arctan.h"
+
 
 
 
 
 int main()
 {
-	Mat img = imread("12.jpg");
-	imshow("source_img", img);
+	Mat img = imread("1.jpg");
+	//imshow("source_img", img);
 	double start, end;
 	int count = 5;
 	while (count--)

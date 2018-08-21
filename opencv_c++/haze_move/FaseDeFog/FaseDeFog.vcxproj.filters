@@ -18,9 +18,6 @@
     <ClInclude Include="FastDehaze.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="arctan.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
