@@ -1,2 +1,22 @@
-﻿  enhance_and_denoising.vcxproj -> C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\haze_move\x64\Release\enhance_and_denoising.exe
-  enhance_and_denoising.vcxproj -> C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\haze_move\x64\Release\enhance_and_denoising.pdb (Full PDB)
+﻿生成启动时间为 2018/8/21 16:37:17。
+     1>项目“C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\enhance_and_denoising\enhance_and_denoising.vcxproj”在节点 5 上(Rebuild 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Release\\" /Fd"x64\Release\vc140.pdb" /Gd /TP /errorReport:prompt enhance_and_denoising.cpp main.cpp
+         enhance_and_denoising.cpp
+     1>enhance_and_denoising.cpp(32): warning C4838: 从“double”转换到“float”需要收缩转换
+     1>enhance_and_denoising.cpp(32): warning C4244: “初始化”: 从“double”转换到“float”，可能丢失数据
+     1>enhance_and_denoising.cpp(41): warning C4244: “参数”: 从“size_t”转换到“double”，可能丢失数据
+         main.cpp
+     1>main.cpp(14): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Release\enhance_and_denoising.exe" /NOLOGO opencv_world330.lib opencv_world330d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Release\enhance_and_denoising.pdb" /OPT:REF /OPT:ICF /LTCG:incremental /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Release\enhance_and_denoising.lib" /MACHINE:X64 x64\Release\enhance_and_denoising.obj
+         x64\Release\main.obj
+         正在生成代码
+         All 145 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+         已完成代码的生成
+         enhance_and_denoising.vcxproj -> C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\x64\Release\enhance_and_denoising.exe
+     1>已完成生成项目“C:\Users\zhxing\Desktop\DIP\opencv_c++\haze_move\enhance_and_denoising\enhance_and_denoising.vcxproj”(Rebuild 个目标)的操作。
+
+已成功生成。
+
+已用时间 00:00:07.74

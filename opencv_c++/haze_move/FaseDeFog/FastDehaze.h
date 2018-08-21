@@ -168,12 +168,37 @@ Mat getLx_A(Mat &M_min,Mat &img, float p,int kernel_size,float &A)
 }
 
 
+
+//建立一个查找表，大小是255*255，用[0-255][0-255]来索引。
+//查找方式为：  Table[(H[X]<<8)+L(X)]   左移是乘法
+vector<vector<uchar>> Function7_table(const float &A)      
+{
+	vector<vector<uchar>> Table = vector<vector<uchar>>(256, vector<uchar>(256, 0));
+	cout << Table.size() << endl;
+	double Value=0;
+	for (int Y = 0; Y < 256; Y++)
+	{
+		for (int X = 0; X < 256; X++)
+		{
+			Value = (Y - X) / (1 - X/A);       //function_7
+			if (Value > 255)
+				Value = 255;
+			else if (Value < 0)
+				Value = 0;
+			
+			Table[Y][X] = Value;
+			//printf("%d\t", Table[Y][X]);  这是个大坑，cout输出uchar的时候是按照ascii码输出的
+		}
+	}
+	return Table;
+}
+
 Mat FastDehaze(Mat &Img, const double p,const int kernel_size,float eps)
 {
 	Mat Lx, ImgDark;
 	ImgDark = min_BGR(Img);
 	Mat ImgDark_32f,Img_32F;
-	Img.convertTo(Img_32F, CV_32F);
+	//Img.convertTo(Img_32F, CV_32F);
 	ImgDark.convertTo(ImgDark_32f, CV_32F);
 	float A;
 	Lx = getLx_A(ImgDark, Img, p, kernel_size, A);
@@ -181,42 +206,67 @@ Mat FastDehaze(Mat &Img, const double p,const int kernel_size,float eps)
 	//cout <<"A:" <<A << endl;
 	//cout << Lx(Range(0,9),Range(0,9)) << endl;
 
-	vector<Mat> Img_split;
-	if (Img_32F.channels() != 3)
-		cout << "必须是彩色图像" << endl;
-	else 
-		split(Img_32F, Img_split);
+	vector<vector<uchar>> Table;
+	Table = Function7_table(A);
 	
-	Mat fenmu = 1 - Lx / (A+eps);
+	Mat ImgDefog = Img.clone();
 
-	vector<Mat> Fenzi;
-	Fenzi.push_back(Img_split[0] - Lx);
-	Fenzi.push_back(Img_split[1] - Lx);
-	Fenzi.push_back(Img_split[2] - Lx);
-
-	
-
-	vector<Mat> Img_split_dehaze;
-	Mat div_tmp;
-
-	for (int i = 0; i < 3; i++)
+	int row_Num = ImgDark_32f.rows;
+	int col_Num = ImgDark_32f.cols;
+	//获得行列
+	for (int i = 0; i < row_Num; i++)
 	{
-		/*cv::divide(Fenzi[i], fenmu, div_tmp);
-		cout<<div_tmp;
-		Img_split_dehaze.push_back(div_tmp);*/        
-		
-		//一开始是注释的这里错了，从最前面一点一点检查才发现，不过不知道哪里有问题，改成new对象就可以了，神奇！
-
-		Mat *tmp = new Mat;
-		cv::divide(Fenzi[i], fenmu, *tmp);
-		Img_split_dehaze.push_back(*tmp);
-		delete tmp;
+		for (int j = 0; j < col_Num; j++)
+		{
+			ImgDefog.at<Vec3b>(i, j)[0] = Table[Img.at<Vec3b>(i, j)[0]][int(Lx.at<float>(i, j))];
+			ImgDefog.at<Vec3b>(i, j)[1] = Table[Img.at<Vec3b>(i, j)[1]][int(Lx.at<float>(i, j))];
+			ImgDefog.at<Vec3b>(i, j)[2] = Table[Img.at<Vec3b>(i, j)[2]][int(Lx.at<float>(i, j))];
+			//处理三个通道
+		}
 	}
+	return ImgDefog;
+
+	//------------【用了查表来做下面的就先不要了】--------------------
+	//vector<Mat> Img_split;
+	//if (Img_32F.channels() != 3)
+	//	cout << "必须是彩色图像" << endl;
+	//else 
+	//	split(Img_32F, Img_split);
+	//
+	//
+	//
+
+	//Mat fenmu = 1 - Lx / (A+eps);
+
+	//vector<Mat> Fenzi;
+	//Fenzi.push_back(Img_split[0] - Lx);
+	//Fenzi.push_back(Img_split[1] - Lx);
+	//Fenzi.push_back(Img_split[2] - Lx);
+
+	//
+
+	//vector<Mat> Img_split_dehaze;
+	//Mat div_tmp;
+
+	//for (int i = 0; i < 3; i++)
+	//{
+	//	/*cv::divide(Fenzi[i], fenmu, div_tmp);
+	//	cout<<div_tmp;
+	//	Img_split_dehaze.push_back(div_tmp);*/        
+	//	
+	//	//一开始是注释的这里错了，从最前面一点一点检查才发现，不过不知道哪里有问题，改成new对象就可以了，神奇！
+
+	//	Mat *tmp = new Mat;
+	//	cv::divide(Fenzi[i], fenmu, *tmp);
+	//	Img_split_dehaze.push_back(*tmp);
+	//	delete tmp;
+	//}
+	//
+	//Mat res_32f, res;
+	//merge(Img_split_dehaze, res_32f);
+	//res_32f.convertTo(res, CV_8UC3);
+	//-----------------------------------【以上】------------------------
 	
-	Mat res_32f, res;
-	merge(Img_split_dehaze, res_32f);
-	res_32f.convertTo(res, CV_8UC3);
-	return res;
 }
 
 
