@@ -174,7 +174,7 @@ Mat getLx_A(Mat &M_min,Mat &img, float p,int kernel_size,float &A)
 vector<vector<uchar>> Function7_table(const float &A)      
 {
 	vector<vector<uchar>> Table = vector<vector<uchar>>(256, vector<uchar>(256, 0));
-	cout << Table.size() << endl;
+	//cout << Table.size() << endl;
 	double Value=0;
 	for (int Y = 0; Y < 256; Y++)
 	{
@@ -187,7 +187,7 @@ vector<vector<uchar>> Function7_table(const float &A)
 				Value = 0;
 			
 			Table[Y][X] = Value;
-			//printf("%d\t", Table[Y][X]);  这是个大坑，cout输出uchar的时候是按照ascii码输出的
+			//printf("%d\t", Table[Y][X]);  这是个大坑，cout输出uchar的时候是按照ascii码输出的，一开始还以为不对
 		}
 	}
 	return Table;

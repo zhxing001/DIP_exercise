@@ -6,7 +6,10 @@
 
 int main()
 {
-	Mat img = imread("12.jpg");
+	Mat img = imread("3.jpg");
+	cout << img.size() << endl;
+	namedWindow("source_img", 2);
+	namedWindow("defog", 2);
 	imshow("source_img", img);
 	double start, end;
 	int count = 5;
