@@ -1,0 +1,6 @@
+﻿  main.cpp
+c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\corecrt_malloc.h(13): error C2144: 语法错误:“int”的前面应有“;”
+c:\users\zhxing\desktop\dip_exercise\opencv_c++\dip\rotate\main.cpp(54): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: 参见“fopen”的声明
+c:\users\zhxing\desktop\dip_exercise\opencv_c++\dip\rotate\main.cpp(143): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: 参见“fopen”的声明

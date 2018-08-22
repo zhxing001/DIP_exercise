@@ -1,0 +1,2 @@
+﻿main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::imshow(class cv::String const &,class cv::debug_build_guard::_InputArray const &)" (?imshow@cv@@YAXAEBVString@1@AEBV_InputArray@debug_build_guard@1@@Z)，该符号在函数 main 中被引用
+C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\DIP\x64\Debug\Rotate.exe : fatal error LNK1120: 1 个无法解析的外部命令
