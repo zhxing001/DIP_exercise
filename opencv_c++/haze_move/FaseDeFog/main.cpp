@@ -1,9 +1,6 @@
 #include"FastDehaze.h"
 
 
-
-
-
 int main()
 {
 	Mat img = imread("3.jpg");
@@ -13,7 +10,7 @@ int main()
 	imshow("source_img", img);
 	double start, end;
 	int count = 5;
-	while (count--)
+	//while (count--)
 	{
 		start = static_cast<double>(getTickCount());
 		auto mat = FastDehaze(img, 1.3, 15);
@@ -23,9 +20,6 @@ int main()
 	}
 	//imshow("defog", mat);
 	
-	//cout << arctan(1.2, 3.0) << endl;
-
-	//auto p=Function7_table(242);
 	waitKey();
 	return 0;
 }
