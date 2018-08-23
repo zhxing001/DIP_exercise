@@ -1,2 +1,5 @@
-﻿main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::imshow(class cv::String const &,class cv::debug_build_guard::_InputArray const &)" (?imshow@cv@@YAXAEBVString@1@AEBV_InputArray@debug_build_guard@1@@Z)，该符号在函数 main 中被引用
+﻿  main.cpp
+c:\users\zhxing\desktop\dip_exercise\opencv_c++\dip\rotate\main.cpp(79): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+c:\users\zhxing\desktop\dip_exercise\opencv_c++\dip\rotate\main.cpp(80): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+main.obj : error LNK2019: 无法解析的外部符号 "void __cdecl cv::imshow(class cv::String const &,class cv::debug_build_guard::_InputArray const &)" (?imshow@cv@@YAXAEBVString@1@AEBV_InputArray@debug_build_guard@1@@Z)，该符号在函数 main 中被引用
 C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\DIP\x64\Debug\Rotate.exe : fatal error LNK1120: 1 个无法解析的外部命令

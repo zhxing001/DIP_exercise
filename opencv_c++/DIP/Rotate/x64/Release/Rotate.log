@@ -1,6 +1,10 @@
 ﻿  main.cpp
+main.cpp(80): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
+main.cpp(81): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
   正在生成代码
-  All 10 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  1 of 38 functions ( 2.6%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   已完成代码的生成
   Rotate.vcxproj -> C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\DIP\x64\Release\Rotate.exe
   Rotate.vcxproj -> C:\Users\zhxing\Desktop\DIP_exercise\opencv_c++\DIP\x64\Release\Rotate.pdb (Full PDB)
