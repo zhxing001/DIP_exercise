@@ -30,7 +30,7 @@ int main()
 	int SrcY3 = -height / 2;
 	int SrcX4 = width / 2;
 	int SrcY4 = -height / 2;
-	cout << std::cos(0.7) << endl;
+	
 	double cosAn = std::cos(angle);
 	double sinAn = std::sin(angle);
 
@@ -61,10 +61,7 @@ int main()
 	
 	//Dst.create(DstHeight, DstWidth, img.type());    //创建DST图像
 	
-	cout <<"旋转后的图像大小："<< Dst.size()<< endl;
-	int DstRows = Dst.rows;
-	int DstCols = Dst.cols;
-	//坐标转换：
+
 
 	//映射回去的原图中的坐标
 	int D2S_x=0;     
