@@ -1,6 +1,6 @@
 
-img_path='C:\Users\zhxing\Desktop\X光';
-write_path='C:\Users\zhxing\Desktop\X光\img\'
+img_path='C:\Users\zhxing\Desktop\X光\X光1\';
+write_path='C:\Users\zhxing\Desktop\X光\X光1\img\';
 img_dir=dir([img_path,'*.out']);   
 num_img=length(img_dir);
 
@@ -11,14 +11,18 @@ for j=1:num_img
 
 f=fopen([img_path img_dir(j).name],'r'); 
 f_2=fread(f);              %二进制读入数据
+sz=size(f_2)
 fclose(f);
-if j==1
+if(sz(1)==207360)
     img_8=f_2(1:end);
-elseif j==6
-    img_8=f_2(1:end);
-else
-img_8=f_2(1:end);         %头文件去掉  
 end
+% if j==1
+%     
+% elseif j==6
+%     img_8=f_2(1:end);
+% else
+% img_8=f_2(1:end);         %头文件去掉  
+% end
 
 
 % [,sort_img]=sort(img_8);                    %排序
@@ -32,7 +36,7 @@ img_shape=img_shape';                       %reshape默认是按列存储的，所以转置一
 img=img_shape;
 imshow(img,[]);
 img=uint8(img);
-imwrite(img,[write_path,num2str(j),'.bmp']);
+imwrite(img,[write_path,num2str(j),'.tiff']);
 
            %写入视频
 j                                     %进度
