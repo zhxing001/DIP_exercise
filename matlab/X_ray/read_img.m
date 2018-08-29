@@ -1,6 +1,6 @@
 
-img_path='C:\Users\zhxing\Desktop\X光\X光1\';
-write_path='C:\Users\zhxing\Desktop\X光\X光1\img\';
+img_path='C:\Users\zhxing\Desktop\X光\X光3\';
+write_path='C:\Users\zhxing\Desktop\X光\X光3\img\';
 img_dir=dir([img_path,'*.out']);   
 num_img=length(img_dir);
 
@@ -36,7 +36,7 @@ img_shape=img_shape';                       %reshape默认是按列存储的，所以转置一
 img=img_shape;
 imshow(img,[]);
 img=uint8(img);
-imwrite(img,[write_path,num2str(j),'.tiff']);
+imwrite(img,[write_path,img_dir(j).name(1:end-4),'.bmp']);
 
            %写入视频
 j                                     %进度

@@ -7,14 +7,15 @@ img=double(img);    %转换成double之后方便处理
 
 %% 3*3的中值滤波可以去除大部分的椒盐噪声
 img_midFilter=medfilt2(img,[3,3]);
+img_midFilter=medfilt2(img_midFilter,[3,3]);
 subplot(3,1,1),imshow(uint8(img)),title('原图');
 subplot(3,1,2),imshow(uint8(img_midFilter)),title('中值滤波');
 
-dest=multiScaleSharpen(img_midFilter,5);
-subplot(3,1,3),imshow(uint8(dest)),title('多尺度对比度增强');
+imwrite(uint8(img_midFilter),'X.tiff');
+% dest=multiScaleSharpen(img_midFilter,5);
+% subplot(3,1,3),imshow(uint8(dest)),title('多尺度对比度增强');
 
 
-%% 试一下对高斯拉普拉斯金字塔。
 
 
 %% 试着用直方图均衡化增强对比度,但是这种增强实际上是不可取的，因为图片中有大量的背景，这样反而会造成图片严重失真
